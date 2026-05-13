@@ -32,6 +32,14 @@ Files changed: `setup.py`, `README.md`, `docs/setup.md`, memory docs.
 
 Tests run: pending for this follow-up patch.
 
+## 2026-05-13T00:45:00Z
+
+Summary: Fixed pytest compatibility for `tests/test_manifest.py` after the Python 3.11 conda env exposed a missing `path` assignment in the pytest-style manifest roundtrip test.
+
+Files changed: `tests/test_manifest.py`, `docs/memory/progress_log.md`.
+
+Tests run: `conda run -n geoshield-mllm python -m pytest` passed 24 tests; `PYTHONPATH=src /home/ubuntu/miniconda3/envs/geoshield/bin/python -m unittest discover -s tests` passed 12 tests.
+
 ## 2026-05-13T00:05:00Z
 
 Summary: Corrected provider assumptions after user clarification. GPT-4o and GPT-5 mini are now configured under TechUtopia OpenAI-compatible access at `https://copilot.techutopia.cn/v1`; first-party OpenAI remains optional.

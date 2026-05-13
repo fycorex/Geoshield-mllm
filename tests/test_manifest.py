@@ -34,6 +34,7 @@ class ManifestTests(unittest.TestCase):
 
 
 def test_manifest_roundtrip(tmp_path: Path) -> None:
+    path = tmp_path / "manifest.csv"
     item = ManifestItem(
         item_id="a",
         dataset_name="gsv",
