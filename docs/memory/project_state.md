@@ -2,7 +2,7 @@
 
 Last updated: 2026-05-13
 
-Repository status: initial bootstrap in progress for `fycorex/Geoshield-mllm`.
+Repository status: initial bootstrap pushed to `fycorex/Geoshield-mllm` on `main`.
 
 Implemented:
 - Repository structure for configs, docs, manifests, scripts, package code, and tests.
@@ -18,7 +18,7 @@ Incomplete:
 - GitHub push is blocked until `gh` is reauthenticated.
 
 Current blockers:
-- Expired `gh` token.
+- Expired `gh` token. Plain `git push` succeeded, but `gh` operations still require `gh auth login -h github.com`.
 - No dataset source paths or cloud API credentials in the workspace.
 - No Drive OAuth/service account credentials in the workspace.
 - `pytest` is not installed in the current conda env, and network package installation is restricted; unit tests are runnable with `unittest`.

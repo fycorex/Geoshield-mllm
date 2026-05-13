@@ -16,6 +16,14 @@ Files changed: `docs/setup.md`, `README.md`, tests, memory docs.
 
 Tests run: `PYTHONPATH=src /home/ubuntu/miniconda3/envs/geoshield/bin/python -m unittest discover -s tests` passed 12 tests.
 
+## 2026-05-13T00:30:00Z
+
+Summary: Created and pushed the initial bootstrap commit to `origin/main`. `gh auth status` remains invalid, but plain git push to `https://github.com/fycorex/Geoshield-mllm` succeeded.
+
+Files changed: repository scaffold committed as `95ae9ec feat: bootstrap geoshield mllm scaffold`.
+
+Tests run: `PYTHONPATH=src /home/ubuntu/miniconda3/envs/geoshield/bin/python -m unittest discover -s tests` passed 12 tests before commit.
+
 ## 2026-05-13T00:05:00Z
 
 Summary: Corrected provider assumptions after user clarification. GPT-4o and GPT-5 mini are now configured under TechUtopia OpenAI-compatible access at `https://copilot.techutopia.cn/v1`; first-party OpenAI remains optional.
