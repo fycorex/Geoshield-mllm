@@ -1,0 +1,13 @@
+run_goal: "Pilot baseline through TechUtopia OpenAI-compatible endpoint."
+victim_providers: [techutopia]
+victim_models:
+  techutopia: [gpt-4o, gpt-5-mini]
+prompt_version: geolocation_infer_v1
+geocoder_backend: google_geocode
+storage_backend: google_drive
+retry:
+  max_attempts: 3
+  initial_seconds: 1.0
+  max_seconds: 20.0
+  multiplier: 2.0
+notes: "Keep budget small; use TECHUTOPIA_BASE_URL=https://copilot.techutopia.cn/v1 and record raw/normalized responses."

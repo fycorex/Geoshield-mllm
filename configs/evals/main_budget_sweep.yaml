@@ -1,0 +1,13 @@
+run_goal: "Main <=1000 image epsilon/step budget sweep."
+victim_providers: [techutopia]
+victim_models:
+  techutopia: [gpt-5-mini]
+prompt_version: geolocation_infer_v1
+geocoder_backend: google_geocode
+storage_backend: google_drive
+retry:
+  max_attempts: 4
+  initial_seconds: 1.0
+  max_seconds: 60.0
+  multiplier: 2.0
+notes: "Run only after TechUtopia pilots validate parsing, storage, and budget."

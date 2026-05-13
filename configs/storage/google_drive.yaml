@@ -1,0 +1,15 @@
+backend: google_drive
+root: GeoShield-MLLM-Probe
+auth_mode: oauth_or_service_account
+oauth_client_secrets: credentials.json
+service_account_env: GOOGLE_APPLICATION_CREDENTIALS
+cache_dir: .cache/geoshield_mllm/drive
+upload:
+  resumable_threshold_mb: 8
+  chunk_size_mb: 8
+  create_sidecar_json: true
+  app_properties:
+    project: Geoshield-mllm
+folder_id_cache: .cache/geoshield_mllm/drive/folder_ids.json
+notes: "Large artifacts go to Drive; git stores only lightweight metadata and reports."
+

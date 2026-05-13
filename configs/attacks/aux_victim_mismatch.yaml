@@ -1,0 +1,14 @@
+attack_name: geoshield_like
+attack_variant: auxiliary_victim_mismatch
+resize: 640
+epsilon: 8/255
+step_size: 1/255
+steps: 200
+surrogate:
+  model_name: "to_be_configured"
+  checkpoint_path: null
+  notes: "Record auxiliary model separately from victim model."
+output_root: runs/{run_id}/adv
+seed: 20260513
+notes: "Probe transfer and mismatch effects without changing the victim prompt."
+

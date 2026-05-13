@@ -1,0 +1,14 @@
+attack_name: geoshield_like
+attack_variant: paper_aligned_baseline
+resize: 640
+epsilon: 8/255
+step_size: 1/255
+steps: 200
+surrogate:
+  model_name: null
+  checkpoint_path: null
+  notes: "Fill after wiring the GeoShield fork."
+output_root: runs/{run_id}/adv
+seed: 1337
+notes: "Paper-aligned baseline target; dry-run until real GeoShield integration is configured."
+

@@ -1,0 +1,17 @@
+run_goal: "Pilot cross-provider comparison."
+victim_providers: [techutopia, openai, gemini, anthropic, dashscope]
+victim_models:
+  techutopia: [gpt-4o, gpt-5-mini]
+  openai: [configured_by_env]
+  gemini: [gemini-configured]
+  anthropic: [claude-configured]
+  dashscope: [qwen-vl-configured]
+prompt_version: geolocation_infer_v1
+geocoder_backend: google_geocode
+storage_backend: google_drive
+retry:
+  max_attempts: 3
+  initial_seconds: 1.0
+  max_seconds: 30.0
+  multiplier: 2.0
+notes: "GPT-4o and GPT-5 mini are currently expected through TechUtopia; only run configured credentials/models."

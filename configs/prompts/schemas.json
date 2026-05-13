@@ -1,0 +1,22 @@
+{
+  "normalized_prediction": {
+    "type": "object",
+    "required": ["provider", "model", "prompt_version", "raw_text", "refusal", "geocode_fallback_used"],
+    "properties": {
+      "provider": {"type": "string"},
+      "model": {"type": "string"},
+      "prompt_version": {"type": "string"},
+      "raw_text": {"type": "string"},
+      "predicted_location_text": {"type": ["string", "null"]},
+      "latitude": {"type": ["number", "null"]},
+      "longitude": {"type": ["number", "null"]},
+      "confidence": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+      "evidence": {"type": "array", "items": {"type": "string"}},
+      "refusal": {"type": "boolean"},
+      "parse_error": {"type": ["string", "null"]},
+      "geocode_fallback_used": {"type": "boolean"},
+      "raw_response_path": {"type": ["string", "null"]}
+    }
+  }
+}
+
