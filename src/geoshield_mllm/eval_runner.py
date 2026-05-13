@@ -46,6 +46,26 @@ def _dry_raw_response(provider: str, model: str) -> RawVictimResponse:
     return RawVictimResponse(provider=provider, model=model, content=payload, raw_text="")
 
 
+def _error_raw_response(provider: str, model: str, exc: Exception) -> RawVictimResponse:
+    status_code = getattr(exc, "status_code", None)
+    response = getattr(exc, "response", None)
+    response_text = None
+    if response is not None:
+        try:
+            response_text = response.text
+        except Exception:  # noqa: BLE001
+            response_text = None
+    payload = {
+        "error": True,
+        "error_type": type(exc).__name__,
+        "message": str(exc),
+        "status_code": status_code,
+        "response_text": response_text,
+        "created_at": utc_now_iso(),
+    }
+    return RawVictimResponse(provider=provider, model=model, content=payload, raw_text="")
+
+
 def run_eval(
     *,
     manifest_path: Path,
@@ -81,12 +101,22 @@ def run_eval(
                 prompt_version=prompt_path.stem,
                 model=model,
             )
-            raw = _dry_raw_response(provider_name, model) if dry_run else provider.infer_geolocation(request)  # type: ignore[union-attr]
+            provider_error = None
+            if dry_run:
+                raw = _dry_raw_response(provider_name, model)
+            else:
+                try:
+                    raw = provider.infer_geolocation(request)  # type: ignore[union-attr]
+                except Exception as exc:  # noqa: BLE001 - errors are preserved as run artifacts.
+                    provider_error = type(exc).__name__
+                    raw = _error_raw_response(provider_name, model, exc)
             raw_path = raw_dir / f"{item.item_id}_{provider_name}_{model}.json"
             write_json(raw_path, raw.content)
             normalized = normalize_response(provider_name, model, prompt_path.stem, raw.raw_text, str(raw_path))
             if dry_run:
                 normalized.parse_error = "dry_run_no_api_call"
+            elif provider_error:
+                normalized.parse_error = f"provider_error:{provider_error}"
             distance_km = None
             if normalized.latitude is not None and normalized.longitude is not None:
                 distance_km = haversine_km(item.latitude, item.longitude, normalized.latitude, normalized.longitude)
@@ -99,6 +129,7 @@ def run_eval(
                 "ground_truth_longitude": item.longitude,
                 "distance_km": distance_km,
                 "dry_run": dry_run,
+                "provider_error": provider_error,
                 **normalized.to_dict(),
                 **threshold_hits(distance_km),
             }
@@ -120,4 +151,3 @@ def run_eval(
     )
     write_json(metrics_dir / "summary.json", summary.__dict__)
     return summary
-

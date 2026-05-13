@@ -64,6 +64,14 @@ Files changed: TechUtopia provider, eval runner, CLI, tests, README, memory docs
 
 Tests run: `conda run -n geoshield-mllm python -m pytest` passed 27 tests; `PYTHONPATH=src /home/ubuntu/miniconda3/envs/geoshield/bin/python -m unittest discover -s tests` passed 12 tests. Dry-run smoke eval wrote 4 explicit non-result records under ignored `runs/smoke_techutopia_dryrun/`.
 
+## 2026-05-13T01:25:00Z
+
+Summary: User ran live TechUtopia smoke eval and the endpoint returned `PermissionDeniedError: Your request was blocked.` Updated eval runner to preserve provider errors as raw artifacts and normalized records instead of crashing the whole run.
+
+Files changed: eval runner, eval tests, memory docs.
+
+Tests run: `conda run -n geoshield-mllm python -m pytest` passed 28 tests; `PYTHONPATH=src /home/ubuntu/miniconda3/envs/geoshield/bin/python -m unittest discover -s tests` passed 12 tests.
+
 ## 2026-05-13T00:05:00Z
 
 Summary: Corrected provider assumptions after user clarification. GPT-4o and GPT-5 mini are now configured under TechUtopia OpenAI-compatible access at `https://copilot.techutopia.cn/v1`; first-party OpenAI remains optional.
