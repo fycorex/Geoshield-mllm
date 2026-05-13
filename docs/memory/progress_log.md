@@ -80,6 +80,14 @@ Files changed: TechUtopia provider, `.env.example`, README, setup docs, memory d
 
 Tests run: `conda run -n geoshield-mllm python -m pytest` passed 31 tests; `PYTHONPATH=src /home/ubuntu/miniconda3/envs/geoshield/bin/python -m unittest discover -s tests` passed 12 tests.
 
+## 2026-05-13T01:45:00Z
+
+Summary: Added Google Drive smoke test command with dry-run, OAuth, and service-account modes. The smoke writes a tiny file, uploads/downloads it through the backend, validates SHA-256, and writes `docs/drive_smoke_latest.json`.
+
+Files changed: Drive smoke module, CLI, tests, storage/setup docs, memory docs.
+
+Tests run: `conda run -n geoshield-mllm python -m pytest` passed 32 tests; `PYTHONPATH=src /home/ubuntu/miniconda3/envs/geoshield/bin/python -m unittest discover -s tests` passed 12 tests. `drive-smoke-test --auth-mode dry-run` passed and wrote `docs/drive_smoke_latest.json`; no OAuth or service-account credentials were present for live Drive smoke.
+
 ## 2026-05-13T00:05:00Z
 
 Summary: Corrected provider assumptions after user clarification. GPT-4o and GPT-5 mini are now configured under TechUtopia OpenAI-compatible access at `https://copilot.techutopia.cn/v1`; first-party OpenAI remains optional.

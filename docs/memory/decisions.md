@@ -109,3 +109,13 @@ Why: `PermissionDeniedError: Your request was blocked` may reflect invalid crede
 Alternatives considered: hard-coding browser-like headers. Rejected because it is an evasion tactic rather than a documented API integration.
 
 Impact: Live failures are preserved as artifacts, and users can configure documented headers or run a text-only diagnostic probe.
+
+## 2026-05-13: Validate Drive With a Tiny Artifact Smoke
+
+Decision: Add `drive-smoke-test` to validate Drive auth and backend behavior before any dataset or run bundle upload.
+
+Why: Drive ownership, quota, and folder permissions can fail late if not tested independently with a tiny artifact.
+
+Alternatives considered: waiting until first real run upload. Rejected because it would mix storage failures with model/dataset failures.
+
+Impact: Drive setup can now be validated without committing artifacts or running an experiment.

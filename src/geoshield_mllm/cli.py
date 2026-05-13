@@ -8,6 +8,7 @@ from geoshield_mllm.attacks import AttackConfig, build_attack
 from geoshield_mllm.datasets import load_manifest, prepare_dataset_from_config
 from geoshield_mllm.eval_runner import run_eval
 from geoshield_mllm.storage import GoogleDriveBackend
+from geoshield_mllm.storage.drive_smoke import run_drive_smoke
 from geoshield_mllm.utils.io import read_yaml, write_json
 
 app = typer.Typer(help="GeoShield MLLM probing CLI.")
@@ -32,6 +33,27 @@ def prepare_dataset(config: Path, availability_report: Path = Path("docs/dataset
 def drive_resolve(*parts: str) -> None:
     backend = GoogleDriveBackend()
     typer.echo(backend.resolve_drive_path(*parts))
+
+
+@app.command()
+def drive_smoke_test(
+    auth_mode: str = typer.Option("dry-run", "--auth-mode", help="dry-run, oauth, or service-account"),
+    report: Path = Path("docs/drive_smoke_latest.json"),
+    root: str = "GeoShield-MLLM-Probe",
+    oauth_client_secrets: Path = Path("credentials.json"),
+    oauth_token: Path = Path(".cache/geoshield_mllm/drive/oauth_token.json"),
+    service_account_path: Path | None = None,
+) -> None:
+    smoke = run_drive_smoke(
+        auth_mode=auth_mode,  # type: ignore[arg-type]
+        root=root,
+        report_path=report,
+        oauth_client_secrets=oauth_client_secrets,
+        oauth_token=oauth_token,
+        service_account_path=service_account_path,
+    )
+    status = "ok" if smoke.ok else "failed"
+    typer.echo(f"drive smoke {status}: {report}")
 
 
 @app.command()

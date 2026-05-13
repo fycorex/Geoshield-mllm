@@ -34,9 +34,23 @@ For TechUtopia, use a real API key and keep `TECHUTOPIA_BASE_URL=https://copilot
 
 Create an OAuth desktop client in Google Cloud, download the client secrets as `credentials.json`, and set `GOOGLE_DRIVE_OAUTH_CLIENT_SECRETS=credentials.json`. The backend can run the installed-app OAuth flow when credentials are available.
 
+Run:
+
+```bash
+conda run -n geoshield-mllm python -m geoshield_mllm.cli drive-smoke-test \
+  --auth-mode oauth \
+  --oauth-client-secrets credentials.json
+```
+
 ## Service Account
 
 Set `GOOGLE_APPLICATION_CREDENTIALS` to a service account JSON path. Share the target Drive folder with the service account email or use an appropriate shared drive setup. Service account quota and ownership behavior depends on the Google Workspace/Drive configuration, so confirm the target deployment before large uploads.
+
+Run:
+
+```bash
+conda run -n geoshield-mllm python -m geoshield_mllm.cli drive-smoke-test --auth-mode service-account
+```
 
 ## GitHub CLI
 

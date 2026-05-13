@@ -1,0 +1,16 @@
+{
+  "auth_mode": "dry-run",
+  "downloaded_matches": true,
+  "downloaded_sha256": "e1cf36ca6f7f5e24d4756272ba3987dcb12157b0dfaacab9220821c793550fdc",
+  "drive_path": "GeoShield-MLLM-Probe/shared/smoke/drive_smoke.txt",
+  "error": null,
+  "file_id": "dryrun:GeoShield-MLLM-Probe/shared/smoke/drive_smoke.txt",
+  "finished_at": "2026-05-13T13:24:15Z",
+  "local_download": ".cache/geoshield_mllm/drive_smoke/smoke_download.txt",
+  "local_source": ".cache/geoshield_mllm/drive_smoke/smoke_source.txt",
+  "metadata_path": ".cache/geoshield_mllm/drive/GeoShield-MLLM-Probe__shared__smoke__drive_smoke.txt.metadata.json",
+  "ok": true,
+  "root": "GeoShield-MLLM-Probe",
+  "started_at": "2026-05-13T13:24:15Z",
+  "uploaded_sha256": "e1cf36ca6f7f5e24d4756272ba3987dcb12157b0dfaacab9220821c793550fdc"
+}

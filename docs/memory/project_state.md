@@ -14,6 +14,7 @@ Implemented:
 - Dataset preparation command added for coordinate-bearing CSV/JSONL metadata and local image directories.
 - `im2gps3k_15_smoke` frozen from locally available coordinate-bearing GeoShield repro metadata.
 - TechUtopia smoke eval runner added with explicit dry-run records and live OpenAI-compatible call path.
+- Google Drive smoke command added for dry-run, OAuth, and service account validation.
 
 Incomplete:
 - Real dataset manifests are not frozen yet.
@@ -29,6 +30,7 @@ Current blockers:
 - Need more coordinate-bearing GSV/IM2GPS3K metadata before freezing `gsv_100_pilot.csv` or `im2gps3k_100_pilot.csv`.
 - `TECHUTOPIA_API_KEY` is not currently exported in this shell, so only dry-run eval can run here.
 - No Drive OAuth/service account credentials in the workspace.
+- Drive dry-run smoke passed and wrote `docs/drive_smoke_latest.json`; live Drive smoke still requires OAuth or service-account credentials.
 - `pytest` is not installed in the current conda env, and network package installation is restricted; unit tests are runnable with `unittest`.
 
 Active assumptions:

@@ -55,3 +55,27 @@ Use deterministic paths, stable item ids, and explicit variants such as `clean`,
 
 Do not commit image batches, adversarial outputs, deltas, raw API dumps, normalized prediction bundles, or metrics bundles. Commit only lightweight manifests, schemas, docs, and summary reports.
 
+## Smoke Test
+
+Dry-run smoke test:
+
+```bash
+conda run -n geoshield-mllm python -m geoshield_mllm.cli drive-smoke-test --auth-mode dry-run
+```
+
+OAuth smoke test:
+
+```bash
+conda run -n geoshield-mllm python -m geoshield_mllm.cli drive-smoke-test \
+  --auth-mode oauth \
+  --oauth-client-secrets credentials.json
+```
+
+Service account smoke test:
+
+```bash
+export GOOGLE_APPLICATION_CREDENTIALS=/path/to/service_account.json
+conda run -n geoshield-mllm python -m geoshield_mllm.cli drive-smoke-test --auth-mode service-account
+```
+
+The command uploads a tiny file to `GeoShield-MLLM-Probe/shared/smoke/`, downloads it, verifies SHA-256, and writes `docs/drive_smoke_latest.json`.
