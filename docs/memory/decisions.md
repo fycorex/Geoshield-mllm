@@ -119,3 +119,23 @@ Why: Drive ownership, quota, and folder permissions can fail late if not tested 
 Alternatives considered: waiting until first real run upload. Rejected because it would mix storage failures with model/dataset failures.
 
 Impact: Drive setup can now be validated without committing artifacts or running an experiment.
+
+## 2026-05-13: Use Official IM2GPS3K, Not the Privacy-Benchmark Mirror
+
+Decision: Use the official IM2GPS3K image ZIP linked by `lugiavn/revisiting-im2gps` and `im2gps3k_places365.csv` GPS metadata for `im2gps3k_100_pilot`.
+
+Why: IM2GPS3K is a roughly 3000-image benchmark with ground-truth GPS. A VLM-GeoPrivacyBench image mirror only yielded 50 IM2GPS3K-labelled rows and is not a substitute.
+
+Alternatives considered: freezing a 50-row mirror subset. Rejected because it would confuse official IM2GPS3K with a related privacy benchmark mirror.
+
+Impact: `im2gps3k_100_pilot` now uses official-source images/metadata; the rejected mirror attempt remains documented only as an acquisition mistake.
+
+## 2026-05-13: Service Account Drive Quota Requires Shared Drive or Delegation
+
+Decision: Treat service-account 403 `storageQuotaExceeded` as a Drive configuration blocker, not a code failure.
+
+Why: Google Drive reports that service accounts do not have storage quota for normal My Drive uploads. The storage target must be a shared drive or use OAuth/delegation with a quota-owning user.
+
+Alternatives considered: retrying uploads. Rejected because repeated retries will not fix quota ownership.
+
+Impact: Use OAuth desktop auth first, or configure a shared drive/service-account access path before large artifact uploads.

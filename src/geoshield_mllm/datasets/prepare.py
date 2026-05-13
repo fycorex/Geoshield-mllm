@@ -45,8 +45,12 @@ class PrepareReport:
 
 
 def _first_present(row: dict[str, Any], names: list[str]) -> str | None:
+    lowered = {str(key).lower(): value for key, value in row.items()}
     for name in names:
         value = row.get(name)
+        if value not in (None, ""):
+            return str(value)
+        value = lowered.get(name.lower())
         if value not in (None, ""):
             return str(value)
     return None
@@ -97,18 +101,18 @@ def load_source_rows(config: dict[str, Any]) -> list[dict[str, Any]]:
 
 
 def row_to_manifest_item(row: dict[str, Any], config: dict[str, Any], index: int) -> ManifestItem | None:
-    lat = _first_present(row, ["latitude", "lat", "true_lat"])
-    lon = _first_present(row, ["longitude", "lon", "lng", "true_lon"])
+    lat = _first_present(row, ["latitude", "lat", "true_lat", "LAT"])
+    lon = _first_present(row, ["longitude", "lon", "lng", "true_lon", "LON"])
     if lat is None or lon is None:
         return None
-    image_path = _first_present(row, ["image_path", "source_path", "path", "file", "filename"])
+    image_path = _first_present(row, ["image_path", "source_path", "path", "file", "filename", "img_id", "IMG_ID"])
     drive_path = _first_present(row, ["drive_path"])
     if image_path:
         image = Path(image_path).expanduser()
         if not image.is_absolute():
             image = Path(str(config["source_root"])).expanduser() / image
         image_path = str(image)
-    source_id = _first_present(row, ["source_id", "id"]) or f"{config['dataset_name']}_{index:06d}"
+    source_id = _first_present(row, ["source_id", "id", "img_id", "IMG_ID"]) or f"{config['dataset_name']}_{index:06d}"
     tags = row.get("tags") or []
     if isinstance(tags, str) and "," in tags and "|" not in tags:
         tags = "|".join(part.strip() for part in tags.split(",") if part.strip())

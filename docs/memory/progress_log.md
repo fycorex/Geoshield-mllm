@@ -88,6 +88,30 @@ Files changed: Drive smoke module, CLI, tests, storage/setup docs, memory docs.
 
 Tests run: `conda run -n geoshield-mllm python -m pytest` passed 32 tests; `PYTHONPATH=src /home/ubuntu/miniconda3/envs/geoshield/bin/python -m unittest discover -s tests` passed 12 tests. `drive-smoke-test --auth-mode dry-run` passed and wrote `docs/drive_smoke_latest.json`; no OAuth or service-account credentials were present for live Drive smoke.
 
+## 2026-05-13T02:00:00Z
+
+Summary: Downloaded coordinate-bearing Hugging Face data into ignored local storage. The first 100+100 attempt used a VLM-GeoPrivacyBench image mirror and failed for IM2GPS3K because that mirror is not the official IM2GPS3K dataset and yielded only 50 IM2GPS3K-labelled rows. This was kept out of git and not used as `im2gps3k_100_pilot`.
+
+Files changed: dataset configs, frozen manifests, dataset availability docs, memory docs; ignored image data downloaded under `data/raw/`.
+
+Tests run: `conda run -n geoshield-mllm python -m pytest` passed 32 tests.
+
+## 2026-05-13T02:05:00Z
+
+Summary: Froze `manifests/gsv_100_pilot.csv` with 100 coordinate-bearing GSV-like rows. Observed user-side/service-account Drive smoke report with Google Drive 403 `storageQuotaExceeded`, which means the service account needs a shared drive, OAuth/delegation, or other quota-owning target.
+
+Files changed: frozen GSV manifest, configs, dataset availability docs, Drive smoke report, memory docs.
+
+Tests run: `conda run -n geoshield-mllm python -m pytest` passed 32 tests.
+
+## 2026-05-13T02:15:00Z
+
+Summary: Corrected IM2GPS3K acquisition after user pointed out that official IM2GPS3K contains about 3000 images with ground-truth GPS. Downloaded official image ZIP from the `lugiavn/revisiting-im2gps` MediaFire link, extracted 3000 images, downloaded `im2gps3k_places365.csv` GPS metadata, and froze `manifests/im2gps3k_100_pilot.csv`.
+
+Files changed: IM2GPS3K config, frozen IM2GPS3K pilot manifest, dataset availability docs, memory docs.
+
+Tests run: `conda run -n geoshield-mllm python -m geoshield_mllm.cli validate-manifest manifests/gsv_100_pilot.csv` passed; `conda run -n geoshield-mllm python -m geoshield_mllm.cli validate-manifest manifests/im2gps3k_100_pilot.csv` passed; `conda run -n geoshield-mllm python -m pytest` passed 33 tests.
+
 ## 2026-05-13T00:05:00Z
 
 Summary: Corrected provider assumptions after user clarification. GPT-4o and GPT-5 mini are now configured under TechUtopia OpenAI-compatible access at `https://copilot.techutopia.cn/v1`; first-party OpenAI remains optional.
