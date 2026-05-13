@@ -1,0 +1,14 @@
+dataset_name: gsv
+subset_name: gsv_100_pilot
+source_type: local_manifest
+source_root: /home/ubuntu/Geoshield/outputs/geoshield_repro30_paper_e8_s200_640_strict/source_images/gsv
+metadata_manifest: /home/ubuntu/Geoshield/outputs/geoshield_repro30_paper_e8_s200_640_strict/metadata/source_manifest.csv
+output_manifest: manifests/gsv_100_pilot.csv
+seed: 1001
+sample_size: 100
+resize_policy: preserve_source_for_manifest
+tag_policy:
+  mode: manual_or_auto
+  allowed_tags: [iconic_landmark, strong_text_cue, street_view_like, natural_scene, indoor, low_geo_signal]
+split_name: pilot
+notes: "Pilot subset for budget-safe baseline validation. Current local GeoShield repro source has images but no lat/lon; replace metadata_manifest with coordinate-bearing metadata before freezing."

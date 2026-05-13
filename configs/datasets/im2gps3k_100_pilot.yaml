@@ -1,0 +1,14 @@
+dataset_name: im2gps3k
+subset_name: im2gps3k_100_pilot
+source_type: local_manifest
+source_root: /home/ubuntu/Geoshield/outputs/geoshield_repro30_paper_e8_s200_640_strict/source_images/im2gps3k
+metadata_manifest: /home/ubuntu/Geoshield/outputs/geoshield_repro30_paper_e8_s200_640_strict/metadata/source_manifest.csv
+output_manifest: manifests/im2gps3k_100_pilot.csv
+seed: 1002
+sample_size: 100
+resize_policy: preserve_source_for_manifest
+tag_policy:
+  mode: manual_or_auto
+  allowed_tags: [iconic_landmark, strong_text_cue, street_view_like, natural_scene, indoor, low_geo_signal]
+split_name: pilot
+notes: "Pilot subset for image geolocation benchmark alignment. Current local GeoShield repro source has images but no lat/lon; replace metadata_manifest with coordinate-bearing metadata before freezing."

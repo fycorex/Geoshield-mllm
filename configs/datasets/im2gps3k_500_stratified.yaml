@@ -1,0 +1,14 @@
+dataset_name: im2gps3k
+subset_name: im2gps3k_500_stratified
+source_type: local_or_drive
+source_root: data/raw/im2gps3k
+output_manifest: manifests/im2gps3k_500_stratified.csv
+seed: 5002
+sample_size: 500
+resize_policy: preserve_source_for_manifest
+tag_policy:
+  mode: stratified_manual_or_auto
+  allowed_tags: [iconic_landmark, strong_text_cue, street_view_like, natural_scene, indoor, low_geo_signal]
+split_name: main
+notes: "Main im2gps3k subset; combine with GSV only within budget."
+

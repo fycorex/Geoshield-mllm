@@ -40,6 +40,14 @@ Files changed: `tests/test_manifest.py`, `docs/memory/progress_log.md`.
 
 Tests run: `conda run -n geoshield-mllm python -m pytest` passed 24 tests; `PYTHONPATH=src /home/ubuntu/miniconda3/envs/geoshield/bin/python -m unittest discover -s tests` passed 12 tests.
 
+## 2026-05-13T00:55:00Z
+
+Summary: Implemented dataset preparation from coordinate-bearing CSV/JSONL metadata and local image directories. Inspected available local GeoShield repro data and found only 30 source images with no lat/lon, so pilot manifests were not frozen from that source. Anchored large-artifact ignore rules so `configs/datasets/` and package dataset modules are tracked.
+
+Files changed: dataset preparation module, CLI, dataset configs, manifests docs, memory docs, dataset availability report, tests.
+
+Tests run: `conda run -n geoshield-mllm python -m pytest` passed 26 tests; `PYTHONPATH=src /home/ubuntu/miniconda3/envs/geoshield/bin/python -m unittest discover -s tests` passed 12 tests.
+
 ## 2026-05-13T00:05:00Z
 
 Summary: Corrected provider assumptions after user clarification. GPT-4o and GPT-5 mini are now configured under TechUtopia OpenAI-compatible access at `https://copilot.techutopia.cn/v1`; first-party OpenAI remains optional.

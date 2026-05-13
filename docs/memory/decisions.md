@@ -59,3 +59,23 @@ Why: The user encountered an editable install failure where the build backend di
 Alternatives considered: requiring a newer pip/setuptools only. Rejected because the repo should be easy to bootstrap in mixed server environments.
 
 Impact: `pip install -e .` has a legacy-compatible path while project metadata remains in `pyproject.toml`.
+
+## 2026-05-13: Refuse to Freeze Manifests Without Coordinates
+
+Decision: `prepare-dataset` requires coordinate-bearing rows and will not write undersized pilot manifests when latitude/longitude are missing.
+
+Why: The project goal requires geolocation metrics, and fabricating or silently omitting ground truth would make later evaluation invalid.
+
+Alternatives considered: creating image-only manifests from the local 30-image GeoShield repro output. Rejected because they would violate the manifest schema and experiment protocol.
+
+Impact: A dataset availability report is generated when local sources are insufficient; real manifests can be frozen once coordinate-bearing metadata is supplied.
+
+## 2026-05-13: Anchor Dataset Artifact Ignore Rules
+
+Decision: Change `.gitignore` large-artifact patterns from broad `datasets/` style entries to root-anchored `/datasets/`, `/data/`, and `/runs/`.
+
+Why: Broad directory ignore rules accidentally hide source and config paths such as `src/geoshield_mllm/datasets/` and `configs/datasets/`.
+
+Alternatives considered: force-adding ignored files. Rejected because future dataset source/config work should not require special git flags.
+
+Impact: Root-level artifact directories remain ignored, while code and config dataset directories are tracked normally.

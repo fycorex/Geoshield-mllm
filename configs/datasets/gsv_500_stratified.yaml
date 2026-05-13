@@ -1,0 +1,14 @@
+dataset_name: gsv
+subset_name: gsv_500_stratified
+source_type: local_or_drive
+source_root: data/raw/gsv
+output_manifest: manifests/gsv_500_stratified.csv
+seed: 5001
+sample_size: 500
+resize_policy: preserve_source_for_manifest
+tag_policy:
+  mode: stratified_manual_or_auto
+  allowed_tags: [iconic_landmark, strong_text_cue, street_view_like, natural_scene, indoor, low_geo_signal]
+split_name: main
+notes: "Main GSV subset; use with im2gps3k_500 for <=1000 images total."
+

@@ -11,13 +11,13 @@ build/
 *.egg-info/
 
 # Large/generated research artifacts stay out of git.
-artifacts/
-data/
-datasets/
-runs/
-cache/
-.cache/
-drive_cache/
+/artifacts/
+/data/
+/datasets/
+/runs/
+/cache/
+/.cache/
+/drive_cache/
 *.jpg
 *.jpeg
 *.png
@@ -38,4 +38,3 @@ credentials.json
 token.json
 service_account*.json
 *.env
-
