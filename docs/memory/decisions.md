@@ -49,3 +49,13 @@ Why: The system `python` command is unavailable, system Python lacks pytest, and
 Alternatives considered: installing pytest into user Python or the conda env. Deferred because network install attempts failed or were interrupted.
 
 Impact: Tests are written to run under `unittest` with `PYTHONPATH=src`, while dev requirements still include pytest for normal development.
+
+## 2026-05-13: Add setup.py Editable Install Compatibility
+
+Decision: Add a minimal `setup.py` shim alongside `pyproject.toml`.
+
+Why: The user encountered an editable install failure where the build backend did not expose `build_editable`, and pip noted there was no `setup.py` or `setup.cfg` fallback.
+
+Alternatives considered: requiring a newer pip/setuptools only. Rejected because the repo should be easy to bootstrap in mixed server environments.
+
+Impact: `pip install -e .` has a legacy-compatible path while project metadata remains in `pyproject.toml`.

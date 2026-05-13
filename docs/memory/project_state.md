@@ -10,6 +10,7 @@ Implemented:
 - Starter configs for dataset subsets, attacks, eval queues, prompts, and Google Drive storage.
 - Python package foundations for manifests, sampling, attacks, providers, geocoding, storage, metrics, reports, retry, hashing, and CLI.
 - Provider config corrected so GPT-4o and GPT-5 mini are treated as TechUtopia OpenAI-compatible models at `https://copilot.techutopia.cn/v1`.
+- `setup.py` compatibility shim added so editable installs work in environments whose build backend path lacks PEP 660 support.
 
 Incomplete:
 - Real dataset manifests are not frozen yet.
@@ -26,6 +27,7 @@ Current blockers:
 Active assumptions:
 - Python 3.11+ is available.
 - Local validation should use `/home/ubuntu/miniconda3/envs/geoshield` unless a newer dedicated conda env is created.
+- `conda` may not be on PATH; use `/home/ubuntu/miniconda3/bin/conda` or export `$HOME/miniconda3/bin` into PATH.
 - Main experiments stay at or below 1000 images.
 - Google Drive is the canonical large-artifact store.
 - Current GPT-4o and GPT-5 mini access is through TechUtopia, not direct OpenAI.
@@ -33,6 +35,6 @@ Active assumptions:
 
 Next recommended steps:
 1. Reauthenticate `gh`.
-2. Install dev dependencies in a conda env with network access, then run `pytest`.
+2. Install dev dependencies in a conda env with network access using `conda run -n <env> python -m pip ...`, then run `python -m pytest`.
 3. Add dataset source roots and generate pilot manifests.
 4. Configure Drive credentials and run a small storage smoke test.

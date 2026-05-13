@@ -24,6 +24,14 @@ Files changed: repository scaffold committed as `95ae9ec feat: bootstrap geoshie
 
 Tests run: `PYTHONPATH=src /home/ubuntu/miniconda3/envs/geoshield/bin/python -m unittest discover -s tests` passed 12 tests before commit.
 
+## 2026-05-13T00:40:00Z
+
+Summary: Fixed environment setup guidance after user reported `conda` was not on PATH and editable install failed due to missing PEP 660 backend support. Added `setup.py` shim and updated docs to use absolute conda path/PATH export plus `conda run`.
+
+Files changed: `setup.py`, `README.md`, `docs/setup.md`, memory docs.
+
+Tests run: pending for this follow-up patch.
+
 ## 2026-05-13T00:05:00Z
 
 Summary: Corrected provider assumptions after user clarification. GPT-4o and GPT-5 mini are now configured under TechUtopia OpenAI-compatible access at `https://copilot.techutopia.cn/v1`; first-party OpenAI remains optional.

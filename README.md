@@ -52,9 +52,11 @@ GitHub stores source, configs, frozen manifests, schemas, and reports. Google Dr
 gh auth login
 git config user.name "fycorex"
 git config user.email "zfysjtu24@sjtu.edu.cn"
-conda activate geoshield
-pip install -e ".[dev,providers]"
-pytest
+export PATH="$HOME/miniconda3/bin:$PATH"
+conda create -n geoshield-mllm python=3.11
+conda run -n geoshield-mllm python -m pip install -U pip setuptools wheel
+conda run -n geoshield-mllm python -m pip install -e ".[dev,providers]"
+conda run -n geoshield-mllm python -m pytest
 ```
 
 In the current workspace, where pytest is not installed and network package installation is restricted, use:
