@@ -99,3 +99,13 @@ Why: This validates file layout and parsing/report plumbing without creating out
 Alternatives considered: emitting plausible JSON predictions. Rejected because it could contaminate later reports.
 
 Impact: Any metric summary can filter or flag dry-run records unambiguously.
+
+## 2026-05-13: Do Not Browser-Impersonate TechUtopia
+
+Decision: Add legitimate configurable request metadata for TechUtopia (`User-Agent`, optional provider-approved extra headers, and image-mode diagnostics), but do not imitate a browser to bypass blocked requests.
+
+Why: `PermissionDeniedError: Your request was blocked` may reflect invalid credentials, endpoint policy, unsupported image payloads, or provider-side access controls. Bypassing those controls would make runs non-reproducible and operationally fragile.
+
+Alternatives considered: hard-coding browser-like headers. Rejected because it is an evasion tactic rather than a documented API integration.
+
+Impact: Live failures are preserved as artifacts, and users can configure documented headers or run a text-only diagnostic probe.

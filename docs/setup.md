@@ -28,6 +28,8 @@ The repository includes a small `setup.py` compatibility shim so older pip/setup
 
 Copy `.env.example` to `.env` and fill only the credentials needed for a run. Never commit `.env`, OAuth tokens, or service account JSON.
 
+For TechUtopia, use a real API key and keep `TECHUTOPIA_BASE_URL=https://copilot.techutopia.cn/v1`. Optional provider-approved request headers can be supplied through `TECHUTOPIA_EXTRA_HEADERS_JSON`. Do not use fake browser impersonation to bypass access controls; blocked requests should be recorded and resolved through valid credentials, endpoint configuration, or provider support.
+
 ## Google Drive OAuth
 
 Create an OAuth desktop client in Google Cloud, download the client secrets as `credentials.json`, and set `GOOGLE_DRIVE_OAUTH_CLIENT_SECRETS=credentials.json`. The backend can run the installed-app OAuth flow when credentials are available.

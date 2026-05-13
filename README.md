@@ -108,6 +108,23 @@ conda run -n geoshield-mllm python -m geoshield_mllm.cli eval-techutopia-smoke \
   --no-dry-run
 ```
 
+If the endpoint returns `PermissionDeniedError: Your request was blocked`, first verify the key is real and not a placeholder. The adapter sends an explicit research-client `User-Agent`; if TechUtopia documents required headers, set them as JSON:
+
+```bash
+export TECHUTOPIA_EXTRA_HEADERS_JSON='{"X-Example-Header":"value"}'
+```
+
+To diagnose whether the endpoint blocks base64 image payloads specifically, run a text-only request:
+
+```bash
+export TECHUTOPIA_IMAGE_MODE=none
+conda run -n geoshield-mllm python -m geoshield_mllm.cli eval-techutopia-smoke \
+  --manifest manifests/im2gps3k_15_smoke.csv \
+  --run-id smoke_techutopia_textonly_probe \
+  --limit 1 \
+  --no-dry-run
+```
+
 ## Reporting Expectations
 
 Every run should produce `run_card.json`, `run_card.md`, `summary.json`, and a Markdown result page under `docs/results/<run_id>/`. Reports must include exact configs, dataset summary, model summary, parse/refusal/geocode fallback rates, subgroup metrics, failure cases, Drive paths, and interpretation notes.

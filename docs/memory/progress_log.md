@@ -72,6 +72,14 @@ Files changed: eval runner, eval tests, memory docs.
 
 Tests run: `conda run -n geoshield-mllm python -m pytest` passed 28 tests; `PYTHONPATH=src /home/ubuntu/miniconda3/envs/geoshield/bin/python -m unittest discover -s tests` passed 12 tests.
 
+## 2026-05-13T01:35:00Z
+
+Summary: Declined browser impersonation as a way to bypass TechUtopia blocking. Added legitimate configurable request metadata instead: research-client `User-Agent`, `TECHUTOPIA_EXTRA_HEADERS_JSON`, and `TECHUTOPIA_IMAGE_MODE=none` for text-only diagnostics.
+
+Files changed: TechUtopia provider, `.env.example`, README, setup docs, memory docs.
+
+Tests run: `conda run -n geoshield-mllm python -m pytest` passed 31 tests; `PYTHONPATH=src /home/ubuntu/miniconda3/envs/geoshield/bin/python -m unittest discover -s tests` passed 12 tests.
+
 ## 2026-05-13T00:05:00Z
 
 Summary: Corrected provider assumptions after user clarification. GPT-4o and GPT-5 mini are now configured under TechUtopia OpenAI-compatible access at `https://copilot.techutopia.cn/v1`; first-party OpenAI remains optional.
