@@ -20,6 +20,7 @@ This repository stores code, configs, schemas, manifests, Markdown reports, and 
 Current GPT-4o and GPT-5 mini access is configured through the TechUtopia OpenAI-compatible endpoint at `https://copilot.techutopia.cn/v1`. First-party OpenAI support remains scaffolded as a separate optional provider.
 
 Dataset plan:
+- `im2gps3k_15_smoke` for local plumbing validation only
 - `gsv_100_pilot`
 - `im2gps3k_100_pilot`
 - `gsv_500_stratified`
@@ -85,6 +86,27 @@ git push -u origin main
 3. `main_budget_sweep`
 4. `main_failure_tags`
 5. `aux_victim_mismatch`
+
+## Smoke Eval
+
+Dry-run TechUtopia smoke eval:
+
+```bash
+conda run -n geoshield-mllm python -m geoshield_mllm.cli eval-techutopia-smoke \
+  --manifest manifests/im2gps3k_15_smoke.csv \
+  --run-id smoke_techutopia_dryrun \
+  --limit 2
+```
+
+Live smoke eval after setting `TECHUTOPIA_API_KEY`:
+
+```bash
+conda run -n geoshield-mllm python -m geoshield_mllm.cli eval-techutopia-smoke \
+  --manifest manifests/im2gps3k_15_smoke.csv \
+  --run-id smoke_techutopia_live_v1 \
+  --limit 2 \
+  --no-dry-run
+```
 
 ## Reporting Expectations
 

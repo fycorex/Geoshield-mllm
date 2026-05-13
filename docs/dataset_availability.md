@@ -19,3 +19,13 @@
 - rows with coordinates: `0`
 - written rows: `0`
 - skipped reason: Need 100 coordinate-bearing rows, found 0.
+
+# Dataset Availability: im2gps3k_15_smoke
+
+- dataset: `im2gps3k`
+- source root: `/home/ubuntu/Geoshield/outputs/geoshield_repro30_paper_e8_s200_640/source_images/im2gps3k`
+- output manifest: `manifests/im2gps3k_15_smoke.csv`
+- requested sample size: `15`
+- discovered rows: `15`
+- rows with coordinates: `15`
+- written rows: `15`

@@ -79,3 +79,23 @@ Why: Broad directory ignore rules accidentally hide source and config paths such
 Alternatives considered: force-adding ignored files. Rejected because future dataset source/config work should not require special git flags.
 
 Impact: Root-level artifact directories remain ignored, while code and config dataset directories are tracked normally.
+
+## 2026-05-13: Add IM2GPS3K 15-Image Smoke Subset
+
+Decision: Freeze `im2gps3k_15_smoke` from the coordinate-bearing rows already available in `/home/ubuntu/Geoshield/outputs/geoshield_repro30_paper_e8_s200_640`.
+
+Why: The requested 100-image pilots remain blocked, but a small real-coordinate subset is enough to validate manifest, provider, metrics, and reporting plumbing.
+
+Alternatives considered: waiting for the full pilot metadata before any eval plumbing. Rejected because it would stall useful integration work.
+
+Impact: Smoke results must be labeled as plumbing validation only and not treated as paper-scale evidence.
+
+## 2026-05-13: Make Dry-Run Eval Records Explicit Non-Results
+
+Decision: Dry-run eval writes raw and normalized records with `dry_run=true` and `parse_error=dry_run_no_api_call`.
+
+Why: This validates file layout and parsing/report plumbing without creating outputs that could be mistaken for model predictions.
+
+Alternatives considered: emitting plausible JSON predictions. Rejected because it could contaminate later reports.
+
+Impact: Any metric summary can filter or flag dry-run records unambiguously.

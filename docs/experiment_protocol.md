@@ -18,6 +18,8 @@ Use paper-aligned or similar datasets, but freeze small deterministic subsets be
 
 Pilot subsets contain 100 images each. Main subsets contain 500 images each. Total main evaluation size must stay at or below 1000 images.
 
+An additional `im2gps3k_15_smoke` subset may be used only for plumbing validation because it is the coordinate-bearing subset currently available locally. It is not a replacement for the requested 100-image pilot.
+
 ## Baseline-Aligned Settings
 
 - resize: `640`

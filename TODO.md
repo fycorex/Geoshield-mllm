@@ -4,8 +4,10 @@
 
 - [x] Bootstrap repository structure, docs, configs, package, and tests.
 - [x] Add dry-run storage, provider normalization, metrics, reporting, and CLI foundations.
+- [x] Freeze available coordinate-bearing `im2gps3k_15_smoke` manifest.
 - [ ] Authenticate `gh` before pushing to GitHub.
-- [ ] Add real dataset source paths and freeze first pilot manifests.
+- [ ] Add enough coordinate-bearing GSV/IM2GPS3K metadata to freeze first 100-image pilot manifests.
+- [ ] Implement 2-5 image TechUtopia smoke eval on `im2gps3k_15_smoke`.
 
 ## Next
 

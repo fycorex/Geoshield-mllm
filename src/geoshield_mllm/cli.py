@@ -6,6 +6,7 @@ import typer
 
 from geoshield_mllm.attacks import AttackConfig, build_attack
 from geoshield_mllm.datasets import load_manifest, prepare_dataset_from_config
+from geoshield_mllm.eval_runner import run_eval
 from geoshield_mllm.storage import GoogleDriveBackend
 from geoshield_mllm.utils.io import read_yaml, write_json
 
@@ -41,6 +42,27 @@ def dry_run_attack(manifest: Path, attack_config: Path, output: Path = Path("run
     results = [attack.run_item(item, output.parent, dry_run=True).__dict__ for item in items]
     write_json(output, results)
     typer.echo(f"wrote {len(results)} dry-run attack records to {output}")
+
+
+@app.command()
+def eval_techutopia_smoke(
+    manifest: Path = Path("manifests/im2gps3k_15_smoke.csv"),
+    prompt: Path = Path("configs/prompts/geolocation_infer_v1.md"),
+    run_id: str = "smoke_techutopia",
+    limit: int = 5,
+    model: list[str] = typer.Option(["gpt-4o", "gpt-5-mini"], "--model"),
+    dry_run: bool = True,
+) -> None:
+    summary = run_eval(
+        manifest_path=manifest,
+        prompt_path=prompt,
+        run_id=run_id,
+        provider_name="techutopia",
+        models=model,
+        limit=limit,
+        dry_run=dry_run,
+    )
+    typer.echo(f"wrote {summary.num_records} eval records to {summary.output_dir}")
 
 
 if __name__ == "__main__":
