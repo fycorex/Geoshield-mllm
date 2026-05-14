@@ -21,6 +21,11 @@ build/
 /external/
 fake_browser.sh
 url.txt
+
+# Local paper text/extracts used for reading, not public repo artifacts.
+/docs/research/geoshield.md
+/docs/research/attack_vllm.md
+/docs/research/transferable_adversarial_attacks.md
 *.jpg
 *.jpeg
 *.png
