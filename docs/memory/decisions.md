@@ -140,15 +140,15 @@ Alternatives considered: retrying uploads. Rejected because repeated retries wil
 
 Impact: Use OAuth desktop auth first, or configure a shared drive/service-account access path before large artifact uploads.
 
-## 2026-05-14: Treat Current GSV Pilot as Proxy Data
+## 2026-05-14: Reject Proxy GSV and Require Exact Location-Inference GSV
 
-Decision: Label `gsv_100_pilot` as a public GSV-like proxy sourced from `stochastic/random_streetview_images_pano_v0.0.2`, not as the GeoShield paper's Street View benchmark.
+Decision: Delete the tracked proxy `gsv_100_pilot` manifest and require the exact Location-Inference Google Street View benchmark for GSV/GSC experiments.
 
-Why: The GeoShield paper notes a Google Street View benchmark with 1,602 images from 1,563 cities across 88 countries. The current local 100-image GSV subset has coordinate-bearing Street View-like images but is not verified as that benchmark.
+Why: The GeoShield paper notes a Google Street View benchmark with 1,602 images from 1,563 cities across 88 countries. The matching Location-Inference repo publishes a Google Drive folder id for that dataset. The prior local 100-image GSV subset was only Street View-like and must not be used.
 
-Alternatives considered: calling it paper-aligned GSV. Rejected because that would overstate dataset provenance.
+Alternatives considered: keeping the proxy with warnings. Rejected because the user requires exact GSV/GSC and proxy data could leak into reports.
 
-Impact: Pilot code can use `gsv_100_pilot`, but reports must mark it as proxy data until a paper-matching GSV source is acquired or reconstructed.
+Impact: `manifests/gsv_100_pilot.csv` is absent until exact data is downloaded and frozen. GSV/GSC runs are blocked until then.
 
 ## 2026-05-14: Add Paper-Aligned Smoke Before Real Attack Integration
 
@@ -159,3 +159,13 @@ Why: The real GeoShield fork integration is still incomplete, but the pipeline s
 Alternatives considered: waiting for full attack integration before any smoke. Rejected because config/reporting mistakes should be caught earlier.
 
 Impact: Smoke success is explicitly non-result dry-run evidence; it does not claim protected-image generation or model performance.
+
+## 2026-05-14: Add Attack-VLLM-Informed Adaptive GeoShield Branch
+
+Decision: Keep `geoshield_baseline` as the clean GeoShield reproduction branch and add `geoshield_attack_vllm_adaptive` as a separate adaptive branch.
+
+Why: The user wants GeoShield optimized with Attack-VLLM ideas such as more surrogates, preprocessing robustness, and contrastive losses. Keeping this separate avoids confusing official GeoShield baseline claims with new adaptive modifications.
+
+Alternatives considered: silently changing the baseline config. Rejected because it would make paper-aligned comparisons invalid.
+
+Impact: Commands and configs now distinguish baseline GeoShield from the adaptive Attack-VLLM-enhanced branch.

@@ -1,0 +1,46 @@
+attack_name: geoshield_like
+attack_variant: attack_vllm_adaptive_geoshield
+resize: 640
+epsilon: 8/255
+step_size: 1/255
+steps: 200
+surrogate:
+  mode: diverse_ensemble
+  primary_backbones: [B16, B32, L336, Laion]
+  planned_backbones:
+    - DINOv2
+    - Qwen2.5-VL
+    - LLaVA-NeXT
+  notes: "Use the full GeoShield CLIP ensemble first; add DINOv2/open-VLLM surrogates through the Attack-VLLM adapter once checkpoints are available."
+geoee:
+  enabled: true
+  detector: GroundingDINO
+  segmenter: SAM
+  fallback: full_image_region
+  prompt: "building. landmark. street sign. road sign. traffic sign. storefront. architecture. monument. bridge. road. street. vehicle. license plate. utility pole. traffic light. mountain. coastline. vegetation. skyline."
+gnfd:
+  enabled: true
+  description_provider: techutopia
+  description_models: [gpt-4o, gpt-5-mini]
+  prompt_version: describe_non_geo_v1
+psae:
+  enabled: true
+  global_crop: true
+  local_patch: true
+  crop_scale: [0.5, 0.9]
+attack_vllm_transfer:
+  enabled: true
+  augmentations:
+    gaussian_noise: true
+    crop_pad_resize: true
+    diffjpeg: true
+    patch_drop: true
+    perturbation_averaging: true
+  losses:
+    visual_contrastive_loss: planned
+    relative_proxy_loss: planned
+  positive_examples: "non-geographic semantic exemplars or clean image regions"
+  negative_examples: "geo-revealing regions and/or original geolocation cue embeddings"
+output_root: runs/{run_id}/adv
+seed: 1337
+notes: "Adaptive GeoShield plan: keep GeoShield GNFD/Geo-EE/PSAE, expand surrogates and preprocessing robustness with Attack-VLLM techniques. Do not report as baseline GeoShield."

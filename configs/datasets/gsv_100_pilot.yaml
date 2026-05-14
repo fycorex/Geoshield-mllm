@@ -1,8 +1,8 @@
 dataset_name: gsv
 subset_name: gsv_100_pilot
-source_type: local_manifest
-source_root: /home/ubuntu/Geoshield-mllm/data/raw/geoshield_pilot_100/source_images/gsv
-metadata_manifest: /home/ubuntu/Geoshield-mllm/data/raw/geoshield_pilot_100/metadata/source_manifest.csv
+source_type: exact_location_inference_gsv
+source_root: /home/ubuntu/Geoshield-mllm/data/raw/location_inference_gsv/images
+metadata_manifest: /home/ubuntu/Geoshield-mllm/data/raw/location_inference_gsv/metadata.csv
 output_manifest: manifests/gsv_100_pilot.csv
 seed: 1001
 sample_size: 100
@@ -11,4 +11,12 @@ tag_policy:
   mode: manual_or_auto
   allowed_tags: [iconic_landmark, strong_text_cue, street_view_like, natural_scene, indoor, low_geo_signal]
 split_name: pilot
-notes: "Pilot subset from streamed public Street View-like Hugging Face source with coordinate metadata; images remain in ignored local data storage."
+source_reference:
+  paper: "Evaluating Precise Geolocation Inference Capabilities of Vision Language Models"
+  arxiv: "https://arxiv.org/abs/2502.14412"
+  repo: "https://github.com/njspyx/location-inference"
+  google_drive_folder_id: "1FodVI-dir7zIpGRVpjnRBgvyTILAOFCX"
+  expected_full_size: 1602
+  expected_unique_cities: 1563
+  expected_countries: 88
+notes: "Exact GSV source required. Do not use the prior Hugging Face GSV-like proxy for this subset."

@@ -21,7 +21,7 @@ Current GPT-4o and GPT-5 mini access is configured through the TechUtopia OpenAI
 
 Dataset plan:
 - `im2gps3k_100_pilot` from official IM2GPS3K images and GPS metadata
-- `gsv_100_pilot` as a public GSV-like proxy until the GeoShield paper's 1,602-image Street View benchmark is verified
+- `gsv_100_pilot` from the exact Location-Inference Google Street View benchmark; do not use GSV-like proxy data
 - `gsv_500_stratified`
 - `im2gps3k_500_stratified`
 
@@ -86,6 +86,8 @@ git push -u origin main
 4. `main_failure_tags`
 5. `aux_victim_mismatch`
 6. `adaptive_transfer_stress_test` as a later explicitly labeled stress test
+
+The Attack-VLLM-informed GeoShield branch is documented in `docs/adaptive_geoshield_plan.md` and configured by `configs/attacks/geoshield_attack_vllm_adaptive.yaml`. GSV/GSC experiments require the exact Location-Inference benchmark, not proxy Street View data.
 
 ## Smoke Eval
 

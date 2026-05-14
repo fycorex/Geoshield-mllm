@@ -128,6 +128,22 @@ Files changed: CLI, smoke runner, smoke-runner test, README, memory docs.
 
 Tests run: GSV manifest integrity check found 100 rows, 0 missing images, 0 SHA-256 mismatches, latitude range `[-45.5513762, 65.9787027]`, and longitude range `[-123.0291068, 175.9786412]`; `conda run -n geoshield-mllm python -m geoshield_mllm.cli paper-aligned-smoke --manifest manifests/im2gps3k_100_pilot.csv --attack-config configs/attacks/geoshield_baseline.yaml --eval-config configs/evals/pilot_openai.yaml --run-id smoke_paper_aligned_im2gps3k --limit 2` passed; `conda run -n geoshield-mllm python -m geoshield_mllm.cli paper-aligned-smoke --manifest manifests/gsv_100_pilot.csv --attack-config configs/attacks/geoshield_baseline.yaml --eval-config configs/evals/pilot_openai.yaml --run-id smoke_paper_aligned_gsvproxy --limit 2` passed; `conda run -n geoshield-mllm python -m pytest` passed 34 tests.
 
+## 2026-05-14T02:40:00Z
+
+Summary: Added a real external GeoShield runner path and an Attack-VLLM-informed adaptive GeoShield config/plan. The intended adaptive branch keeps GNFD/Geo-EE/PSAE, expands the surrogate ensemble, and adds Attack-VLLM-style augmentation/loss work as the next optimizer patch.
+
+Files changed: adaptive config, adaptive plan docs, README, TODO, memory docs, external GeoShield runner, CLI.
+
+Tests run: A one-image, one-step real GeoShield smoke generated a protected image under ignored `runs/real_geoshield_smoke_1step/`. Full test suite not rerun in this change because the user asked for commands rather than more local execution.
+
+## 2026-05-14T02:55:00Z
+
+Summary: Corrected GSV/GSC policy after user clarified exact data is required. Removed the tracked proxy `gsv_100_pilot.csv`, pointed `gsv_100_pilot.yaml` at the exact Location-Inference GSV benchmark, and added a download helper for the published Google Drive folder id.
+
+Files changed: GSV dataset config, dataset availability docs, setup docs, adaptive plan, README, TODO, memory docs, requirements, exact-GSV download script.
+
+Tests run: not run; documentation/config correction only.
+
 ## 2026-05-13T00:05:00Z
 
 Summary: Corrected provider assumptions after user clarification. GPT-4o and GPT-5 mini are now configured under TechUtopia OpenAI-compatible access at `https://copilot.techutopia.cn/v1`; first-party OpenAI remains optional.

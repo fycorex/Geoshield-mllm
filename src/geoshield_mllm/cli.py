@@ -5,6 +5,7 @@ from pathlib import Path
 import typer
 
 from geoshield_mllm.attacks import AttackConfig, build_attack
+from geoshield_mllm.attacks.external_geoshield import run_external_geoshield
 from geoshield_mllm.datasets import load_manifest, prepare_dataset_from_config
 from geoshield_mllm.eval_runner import run_eval
 from geoshield_mllm.smoke_runner import run_paper_aligned_smoke
@@ -108,6 +109,45 @@ def paper_aligned_smoke(
         dry_run=dry_run,
     )
     typer.echo(f"paper-aligned smoke wrote {summary.eval_records} eval records to {summary.output_dir}")
+
+
+@app.command()
+def run_geoshield_attack(
+    manifest: Path = Path("manifests/im2gps3k_100_pilot.csv"),
+    attack_config: Path = Path("configs/attacks/geoshield_baseline.yaml"),
+    run_id: str = "geoshield_real_attack_smoke",
+    limit: int = 1,
+    external_root: Path = Path("external/geoshield"),
+    python: str = "/home/ubuntu/miniconda3/envs/geoshield/bin/python",
+    device: str = "cpu",
+    backbone: list[str] = typer.Option(["B16", "B32"], "--backbone"),
+    strict_geoee: bool = typer.Option(False, "--strict-geoee/--no-strict-geoee"),
+    groundingdino_device: str = "cpu",
+    descriptions_provider: str = "fallback",
+    descriptions_model: str = "gpt-4o",
+    allow_description_fallback: bool = True,
+    steps: int | None = None,
+    resize: int | None = None,
+) -> None:
+    cfg = AttackConfig(**read_yaml(attack_config))
+    summary = run_external_geoshield(
+        manifest_path=manifest,
+        attack_config=cfg,
+        run_id=run_id,
+        limit=limit,
+        external_root=external_root,
+        python=python,
+        device=device,
+        backbones=backbone,
+        strict_geoee=strict_geoee,
+        groundingdino_device=groundingdino_device,
+        descriptions_provider=descriptions_provider,
+        descriptions_model=descriptions_model,
+        allow_description_fallback=allow_description_fallback,
+        steps_override=steps,
+        resize_override=resize,
+    )
+    typer.echo(f"GeoShield generated {summary.adv_records} protected images in {summary.output_dir}")
 
 
 if __name__ == "__main__":

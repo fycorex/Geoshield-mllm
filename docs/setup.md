@@ -61,6 +61,19 @@ gh repo view fycorex/Geoshield-mllm
 
 If the token is expired, run `gh auth login -h github.com` again.
 
+## Exact GSV/GSC Dataset
+
+GeoShield's Street View benchmark must use the exact Location-Inference Google Street View dataset, not a random Street View proxy. The source repository is `https://github.com/njspyx/location-inference`, and its README gives Google Drive folder id `1FodVI-dir7zIpGRVpjnRBgvyTILAOFCX`.
+
+Install dataset helpers and download into ignored local storage:
+
+```bash
+conda run -n geoshield-mllm python -m pip install ".[datasets]"
+conda run -n geoshield-mllm python scripts/download_exact_gsv.py
+```
+
+After download, inspect the folder layout, set `configs/datasets/gsv_100_pilot.yaml` paths if needed, and generate `manifests/gsv_100_pilot.csv` only from that exact source.
+
 ## Common Failures
 
 - `invalid_grant`: delete the local OAuth token and reauthenticate.

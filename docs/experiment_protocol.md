@@ -16,8 +16,8 @@ Use paper-aligned or similar datasets, but freeze small deterministic subsets be
 
 Current dataset status:
 - `im2gps3k_100_pilot` uses official IM2GPS3K images and GPS metadata.
-- `gsv_100_pilot` uses a public random Street View Hugging Face source with GPS coordinates. It is a GSV-like proxy, not a verified match to the GeoShield paper's 1,602-image Street View benchmark.
-- Reports must label proxy GSV results separately from paper-aligned GSV results.
+- `gsv_100_pilot` must use the exact Location-Inference Google Street View benchmark: 1,602 images from 1,563 unique cities across 88 countries.
+- The previous public random Street View Hugging Face proxy is rejected and must not be reported as GSV/GSC.
 
 ## Pilot/Main Strategy
 

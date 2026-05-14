@@ -18,11 +18,15 @@ Implemented:
 - Downloaded official IM2GPS3K images from the `lugiavn/revisiting-im2gps` MediaFire link and GPS metadata from `im2gps3k_places365.csv`; froze `im2gps3k_100_pilot`.
 - Added paper-aligned smoke runner that records GeoShield baseline settings without claiming real attack execution.
 - Drive OAuth smoke succeeded and wrote `docs/drive_smoke_latest.json`.
+- Added real external GeoShield runner capable of generating protected images through the local `external/geoshield` optimizer.
+- Added Attack-VLLM-informed adaptive GeoShield config and command plan.
+- Removed the proxy `manifests/gsv_100_pilot.csv`; exact GSV/GSC must come from the Location-Inference benchmark.
 
 Incomplete:
-- Real GeoShield attack integration is not implemented; current attack layer supports dry-run metadata.
+- Attack-VLLM augmentations and visual contrastive loss are documented/configured but not yet patched into the GeoShield gradient loop.
+- DINOv2 and open-VLLM surrogate adapters are not yet implemented.
 - Live provider calls require working TechUtopia/API credentials.
-- `gsv_100_pilot` is GSV-like proxy data, not verified as the GeoShield paper's 1,602-image Street View benchmark.
+- `gsv_100_pilot` is not currently frozen; it must be regenerated from the exact Location-Inference Google Street View benchmark.
 
 Current blockers:
 - Expired `gh` token. Plain `git push` succeeded, but `gh` operations still require `gh auth login -h github.com`.
@@ -40,7 +44,8 @@ Active assumptions:
 - API adapters must preserve raw responses and normalized parse failures.
 
 Next recommended steps:
-1. Add real GeoShield attack integration.
-2. Upload/cache pilot artifacts in Drive using the working OAuth path.
-3. Run a small live TechUtopia eval once endpoint access is confirmed.
-4. Acquire or reconstruct the GeoShield paper's Street View benchmark before making paper-aligned GSV claims.
+1. Patch GeoShield's optimizer to apply Attack-VLLM augmentations and visual contrastive/relative proxy losses inside each gradient step.
+2. Add DINOv2 and open-VLLM surrogate adapters.
+3. Upload/cache pilot artifacts in Drive using the working OAuth path.
+4. Run a small live TechUtopia eval once endpoint access is confirmed.
+5. Download the exact Location-Inference Google Street View benchmark and regenerate `manifests/gsv_100_pilot.csv`.

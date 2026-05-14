@@ -26,8 +26,8 @@ The primary paper is GeoShield (AAAI 2026, arXiv:2508.03209). The transferable b
 ## 4. Dataset Status
 
 - `im2gps3k_100_pilot` uses official IM2GPS3K images and GPS metadata, so it is appropriate for pilot experiments.
-- `gsv_100_pilot` currently uses a public random Street View Hugging Face source with GPS coordinates. It is GSV-like and useful for plumbing/pilot diversity, but it is not verified as the GeoShield paper's 1,602-image Street View benchmark.
-- Reports must label `gsv_100_pilot` as proxy data until a paper-matching GSV source is found or reproduced.
+- `gsv_100_pilot` must use the exact 1,602-image Location-Inference Google Street View benchmark referenced by GeoShield. The prior Hugging Face Street View proxy is rejected and must not be used.
+- Reports must not include GSV/GSC results until `manifests/gsv_100_pilot.csv` is regenerated from the exact benchmark source.
 
 ## 5. Future Method Development
 
@@ -39,4 +39,4 @@ Do not claim a new defense during the probing phase. A future MLLM-aware defense
 2. Configure Drive OAuth or shared-drive service-account storage and rerun live Drive smoke.
 3. Resolve TechUtopia live endpoint blocking with valid provider-supported access.
 4. Add real GeoShield fork integration into `src/geoshield_mllm/attacks/`.
-5. Acquire or reconstruct a paper-matching GSV dataset before making Street View paper-alignment claims.
+5. Download the exact Location-Inference GSV benchmark and regenerate `manifests/gsv_100_pilot.csv`.
