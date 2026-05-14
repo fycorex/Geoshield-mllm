@@ -5,7 +5,7 @@
 Preferred local workflow in this workspace uses the existing conda environment:
 
 ```bash
-PYTHONPATH=src /home/ubuntu/miniconda3/envs/geoshield/bin/python -m unittest discover -s tests
+PYTHONPATH=src /home/ubuntu/miniconda3/envs/geoshield-mllm/bin/python -m unittest discover -s tests
 ```
 
 If creating a fresh environment:
@@ -20,7 +20,7 @@ conda run -n geoshield-mllm python -m pytest
 
 If `conda` is not on PATH, either use `/home/ubuntu/miniconda3/bin/conda` directly or run `export PATH="$HOME/miniconda3/bin:$PATH"` first.
 
-The repository targets Python 3.11+, but the current `/home/ubuntu/miniconda3/envs/geoshield` environment is Python 3.10 and is sufficient for the initial pure-unit scaffold validation.
+The repository targets Python 3.11+. The current dedicated environment is `/home/ubuntu/miniconda3/envs/geoshield-mllm`.
 
 The repository includes a small `setup.py` compatibility shim so older pip/setuptools combinations can perform editable installs when PEP 660 editable support is unavailable.
 

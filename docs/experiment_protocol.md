@@ -14,11 +14,16 @@ The primary paper is GeoShield, a geolocation privacy defense paper. The black-b
 
 Use paper-aligned or similar datasets, but freeze small deterministic subsets before evaluation. Store ground-truth latitude/longitude and preserve city, region, and country fields when available. Supported tags are `iconic_landmark`, `strong_text_cue`, `street_view_like`, `natural_scene`, `indoor`, and `low_geo_signal`.
 
+Current dataset status:
+- `im2gps3k_100_pilot` uses official IM2GPS3K images and GPS metadata.
+- `gsv_100_pilot` uses a public random Street View Hugging Face source with GPS coordinates. It is a GSV-like proxy, not a verified match to the GeoShield paper's 1,602-image Street View benchmark.
+- Reports must label proxy GSV results separately from paper-aligned GSV results.
+
 ## Pilot/Main Strategy
 
 Pilot subsets contain 100 images each. Main subsets contain 500 images each. Total main evaluation size must stay at or below 1000 images.
 
-Additional smaller subsets may be used only for plumbing validation or interim analysis. `im2gps3k_15_smoke` validates the stack quickly. It is not a replacement for the official IM2GPS3K pilot.
+Additional smaller subsets may be used only for plumbing validation or interim analysis. Smoke runs should prefer `im2gps3k_100_pilot` or `gsv_100_pilot` with `--limit 2` rather than maintaining separate tiny manifests.
 
 ## Baseline-Aligned Settings
 
@@ -56,6 +61,7 @@ Use `<date>_<datasetbundle>_<attack>_<victimgroup>_<shorttag>`, for example `202
 3. `main_budget_sweep`
 4. `main_failure_tags`
 5. `aux_victim_mismatch`
+6. `adaptive_transfer_stress_test` as a later, explicitly labeled stress test using ideas from arXiv:2505.01050.
 
 ## Negative Results
 

@@ -7,6 +7,7 @@ import typer
 from geoshield_mllm.attacks import AttackConfig, build_attack
 from geoshield_mllm.datasets import load_manifest, prepare_dataset_from_config
 from geoshield_mllm.eval_runner import run_eval
+from geoshield_mllm.smoke_runner import run_paper_aligned_smoke
 from geoshield_mllm.storage import GoogleDriveBackend
 from geoshield_mllm.storage.drive_smoke import run_drive_smoke
 from geoshield_mllm.utils.io import read_yaml, write_json
@@ -68,7 +69,7 @@ def dry_run_attack(manifest: Path, attack_config: Path, output: Path = Path("run
 
 @app.command()
 def eval_techutopia_smoke(
-    manifest: Path = Path("manifests/im2gps3k_15_smoke.csv"),
+    manifest: Path = Path("manifests/im2gps3k_100_pilot.csv"),
     prompt: Path = Path("configs/prompts/geolocation_infer_v1.md"),
     run_id: str = "smoke_techutopia",
     limit: int = 5,
@@ -85,6 +86,28 @@ def eval_techutopia_smoke(
         dry_run=dry_run,
     )
     typer.echo(f"wrote {summary.num_records} eval records to {summary.output_dir}")
+
+
+@app.command()
+def paper_aligned_smoke(
+    manifest: Path = Path("manifests/im2gps3k_100_pilot.csv"),
+    attack_config: Path = Path("configs/attacks/geoshield_baseline.yaml"),
+    eval_config: Path = Path("configs/evals/pilot_openai.yaml"),
+    prompt: Path = Path("configs/prompts/geolocation_infer_v1.md"),
+    run_id: str = "smoke_paper_aligned_geoshieldbase",
+    limit: int = 2,
+    dry_run: bool = True,
+) -> None:
+    summary = run_paper_aligned_smoke(
+        manifest_path=manifest,
+        attack_config_path=attack_config,
+        eval_config_path=eval_config,
+        prompt_path=prompt,
+        run_id=run_id,
+        limit=limit,
+        dry_run=dry_run,
+    )
+    typer.echo(f"paper-aligned smoke wrote {summary.eval_records} eval records to {summary.output_dir}")
 
 
 if __name__ == "__main__":

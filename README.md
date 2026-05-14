@@ -20,9 +20,8 @@ This repository stores code, configs, schemas, manifests, Markdown reports, and 
 Current GPT-4o and GPT-5 mini access is configured through the TechUtopia OpenAI-compatible endpoint at `https://copilot.techutopia.cn/v1`. First-party OpenAI support remains scaffolded as a separate optional provider.
 
 Dataset plan:
-- `im2gps3k_15_smoke` for local plumbing validation only
-- `gsv_100_pilot`
-- `im2gps3k_100_pilot`
+- `im2gps3k_100_pilot` from official IM2GPS3K images and GPS metadata
+- `gsv_100_pilot` as a public GSV-like proxy until the GeoShield paper's 1,602-image Street View benchmark is verified
 - `gsv_500_stratified`
 - `im2gps3k_500_stratified`
 
@@ -60,10 +59,10 @@ conda run -n geoshield-mllm python -m pip install -e ".[dev,providers]"
 conda run -n geoshield-mllm python -m pytest
 ```
 
-In the current workspace, where pytest is not installed and network package installation is restricted, use:
+Fallback command if a minimal environment lacks pytest:
 
 ```bash
-PYTHONPATH=src /home/ubuntu/miniconda3/envs/geoshield/bin/python -m unittest discover -s tests
+PYTHONPATH=src /home/ubuntu/miniconda3/envs/geoshield-mllm/bin/python -m unittest discover -s tests
 ```
 
 If this repo is not yet on GitHub:
@@ -86,14 +85,26 @@ git push -u origin main
 3. `main_budget_sweep`
 4. `main_failure_tags`
 5. `aux_victim_mismatch`
+6. `adaptive_transfer_stress_test` as a later explicitly labeled stress test
 
 ## Smoke Eval
+
+Paper-aligned dry-run smoke with GeoShield baseline settings:
+
+```bash
+conda run -n geoshield-mllm python -m geoshield_mllm.cli paper-aligned-smoke \
+  --manifest manifests/im2gps3k_100_pilot.csv \
+  --attack-config configs/attacks/geoshield_baseline.yaml \
+  --eval-config configs/evals/pilot_openai.yaml \
+  --run-id smoke_paper_aligned_im2gps3k \
+  --limit 2
+```
 
 Dry-run TechUtopia smoke eval:
 
 ```bash
 conda run -n geoshield-mllm python -m geoshield_mllm.cli eval-techutopia-smoke \
-  --manifest manifests/im2gps3k_15_smoke.csv \
+  --manifest manifests/im2gps3k_100_pilot.csv \
   --run-id smoke_techutopia_dryrun \
   --limit 2
 ```
@@ -102,7 +113,7 @@ Live smoke eval after setting `TECHUTOPIA_API_KEY`:
 
 ```bash
 conda run -n geoshield-mllm python -m geoshield_mllm.cli eval-techutopia-smoke \
-  --manifest manifests/im2gps3k_15_smoke.csv \
+  --manifest manifests/im2gps3k_100_pilot.csv \
   --run-id smoke_techutopia_live_v1 \
   --limit 2 \
   --no-dry-run
@@ -119,7 +130,7 @@ To diagnose whether the endpoint blocks base64 image payloads specifically, run 
 ```bash
 export TECHUTOPIA_IMAGE_MODE=none
 conda run -n geoshield-mllm python -m geoshield_mllm.cli eval-techutopia-smoke \
-  --manifest manifests/im2gps3k_15_smoke.csv \
+  --manifest manifests/im2gps3k_100_pilot.csv \
   --run-id smoke_techutopia_textonly_probe \
   --limit 1 \
   --no-dry-run

@@ -112,6 +112,22 @@ Files changed: IM2GPS3K config, frozen IM2GPS3K pilot manifest, dataset availabi
 
 Tests run: `conda run -n geoshield-mllm python -m geoshield_mllm.cli validate-manifest manifests/gsv_100_pilot.csv` passed; `conda run -n geoshield-mllm python -m geoshield_mllm.cli validate-manifest manifests/im2gps3k_100_pilot.csv` passed; `conda run -n geoshield-mllm python -m pytest` passed 33 tests.
 
+## 2026-05-14T02:20:00Z
+
+Summary: Re-read the current Markdown notes for GeoShield and the transferable black-box VLLM attack paper. Revised the plan to keep GeoShield as the primary defense paper, treat arXiv:2505.01050 as later stress-test context only, and label the current GSV pilot as GSV-like proxy data rather than a verified paper benchmark.
+
+Files changed: research notes, revised research plan, experiment protocol, dataset availability docs, README, TODO, memory docs.
+
+Tests run: pending.
+
+## 2026-05-14T02:25:00Z
+
+Summary: Added a config-driven `paper-aligned-smoke` command. Ran it on `im2gps3k_100_pilot` and `gsv_100_pilot` with GeoShield baseline settings: resize 640, epsilon 8/255, step size 1/255, and 200 steps. Both smoke runs wrote ignored artifacts under `runs/`; they are dry-run/non-result checks because real GeoShield attack integration is not wired yet.
+
+Files changed: CLI, smoke runner, smoke-runner test, README, memory docs.
+
+Tests run: GSV manifest integrity check found 100 rows, 0 missing images, 0 SHA-256 mismatches, latitude range `[-45.5513762, 65.9787027]`, and longitude range `[-123.0291068, 175.9786412]`; `conda run -n geoshield-mllm python -m geoshield_mllm.cli paper-aligned-smoke --manifest manifests/im2gps3k_100_pilot.csv --attack-config configs/attacks/geoshield_baseline.yaml --eval-config configs/evals/pilot_openai.yaml --run-id smoke_paper_aligned_im2gps3k --limit 2` passed; `conda run -n geoshield-mllm python -m geoshield_mllm.cli paper-aligned-smoke --manifest manifests/gsv_100_pilot.csv --attack-config configs/attacks/geoshield_baseline.yaml --eval-config configs/evals/pilot_openai.yaml --run-id smoke_paper_aligned_gsvproxy --limit 2` passed; `conda run -n geoshield-mllm python -m pytest` passed 34 tests.
+
 ## 2026-05-13T00:05:00Z
 
 Summary: Corrected provider assumptions after user clarification. GPT-4o and GPT-5 mini are now configured under TechUtopia OpenAI-compatible access at `https://copilot.techutopia.cn/v1`; first-party OpenAI remains optional.

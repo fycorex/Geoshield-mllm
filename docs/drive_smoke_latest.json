@@ -1,16 +1,16 @@
 {
-  "auth_mode": "service-account",
-  "downloaded_matches": false,
-  "downloaded_sha256": null,
+  "auth_mode": "oauth",
+  "downloaded_matches": true,
+  "downloaded_sha256": "aa14718caa01b56d295015ce47759ec8b7ad30cab100c82e1ffcde40f889c477",
   "drive_path": "GeoShield-MLLM-Probe/shared/smoke/drive_smoke.txt",
-  "error": "HttpError: <HttpError 403 when requesting https://www.googleapis.com/upload/drive/v3/files?fields=id&alt=json&uploadType=resumable returned \"Service Accounts do not have storage quota. Leverage shared drives (https://developers.google.com/workspace/drive/api/guides/about-shareddrives), or use OAuth delegation (http://support.google.com/a/answer/7281227) instead.\". Details: \"[{'message': 'Service Accounts do not have storage quota. Leverage shared drives (https://developers.google.com/workspace/drive/api/guides/about-shareddrives), or use OAuth delegation (http://support.google.com/a/answer/7281227) instead.', 'domain': 'usageLimits', 'reason': 'storageQuotaExceeded'}]\">",
-  "file_id": null,
-  "finished_at": "2026-05-13T13:43:53Z",
+  "error": null,
+  "file_id": "13CnBqcIvaEaMQ4g9W9XwoJLVP_sLu2wc",
+  "finished_at": "2026-05-13T14:33:08Z",
   "local_download": ".cache/geoshield_mllm/drive_smoke/smoke_download.txt",
   "local_source": ".cache/geoshield_mllm/drive_smoke/smoke_source.txt",
-  "metadata_path": null,
-  "ok": false,
+  "metadata_path": ".cache/geoshield_mllm/drive/GeoShield-MLLM-Probe__shared__smoke__drive_smoke.txt.metadata.json",
+  "ok": true,
   "root": "GeoShield-MLLM-Probe",
-  "started_at": "2026-05-13T13:43:46Z",
-  "uploaded_sha256": "15268cc826f5077ccae2e0ca9f4cf16bb4df57acbcc4a8085c0a4779f42e409f"
+  "started_at": "2026-05-13T14:32:11Z",
+  "uploaded_sha256": "aa14718caa01b56d295015ce47759ec8b7ad30cab100c82e1ffcde40f889c477"
 }

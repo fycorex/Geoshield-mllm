@@ -139,3 +139,23 @@ Why: Google Drive reports that service accounts do not have storage quota for no
 Alternatives considered: retrying uploads. Rejected because repeated retries will not fix quota ownership.
 
 Impact: Use OAuth desktop auth first, or configure a shared drive/service-account access path before large artifact uploads.
+
+## 2026-05-14: Treat Current GSV Pilot as Proxy Data
+
+Decision: Label `gsv_100_pilot` as a public GSV-like proxy sourced from `stochastic/random_streetview_images_pano_v0.0.2`, not as the GeoShield paper's Street View benchmark.
+
+Why: The GeoShield paper notes a Google Street View benchmark with 1,602 images from 1,563 cities across 88 countries. The current local 100-image GSV subset has coordinate-bearing Street View-like images but is not verified as that benchmark.
+
+Alternatives considered: calling it paper-aligned GSV. Rejected because that would overstate dataset provenance.
+
+Impact: Pilot code can use `gsv_100_pilot`, but reports must mark it as proxy data until a paper-matching GSV source is acquired or reconstructed.
+
+## 2026-05-14: Add Paper-Aligned Smoke Before Real Attack Integration
+
+Decision: Add `paper-aligned-smoke` to validate manifests, configs, attack metadata, eval artifacts, and run cards using GeoShield baseline settings.
+
+Why: The real GeoShield fork integration is still incomplete, but the pipeline should already prove that paper-aligned settings are recorded and reproducible.
+
+Alternatives considered: waiting for full attack integration before any smoke. Rejected because config/reporting mistakes should be caught earlier.
+
+Impact: Smoke success is explicitly non-result dry-run evidence; it does not claim protected-image generation or model performance.

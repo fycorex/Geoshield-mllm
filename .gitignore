@@ -18,6 +18,9 @@ build/
 /cache/
 /.cache/
 /drive_cache/
+/external/
+fake_browser.sh
+url.txt
 *.jpg
 *.jpeg
 *.png

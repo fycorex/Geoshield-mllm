@@ -4,11 +4,11 @@
 
 - [x] Bootstrap repository structure, docs, configs, package, and tests.
 - [x] Add dry-run storage, provider normalization, metrics, reporting, and CLI foundations.
-- [x] Freeze available coordinate-bearing `im2gps3k_15_smoke` manifest.
 - [x] Download ignored local pilot data and freeze `gsv_100_pilot`.
 - [x] Download official IM2GPS3K images/metadata and freeze `im2gps3k_100_pilot`.
 - [ ] Authenticate `gh` before pushing to GitHub.
-- [ ] Implement 2-5 image TechUtopia smoke eval on `im2gps3k_15_smoke`.
+- [ ] Implement 2-5 image TechUtopia smoke eval on `im2gps3k_100_pilot`.
+- [ ] Acquire or reconstruct a paper-matching GSV benchmark before paper-aligned Street View claims.
 
 ## Next
 
