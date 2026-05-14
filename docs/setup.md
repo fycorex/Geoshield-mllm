@@ -63,16 +63,23 @@ If the token is expired, run `gh auth login -h github.com` again.
 
 ## Exact GSV/GSC Dataset
 
-GeoShield's Street View benchmark must use the exact Location-Inference Google Street View dataset, not a random Street View proxy. The source repository is `https://github.com/njspyx/location-inference`, and its README gives Google Drive folder id `1FodVI-dir7zIpGRVpjnRBgvyTILAOFCX`.
+GeoShield's Street View benchmark must use the exact Location-Inference Google Street View dataset, not a random Street View proxy. The source repository is `https://github.com/njspyx/location-inference`.
 
-Install dataset helpers and download into ignored local storage:
+The upstream README lists a `gdown` folder download for the dataset. The user explicitly permitted this official Drive-hosted dataset source on 2026-05-14. Install dataset helpers and download into ignored local storage:
 
 ```bash
 conda run -n geoshield-mllm python -m pip install ".[datasets]"
 conda run -n geoshield-mllm python scripts/download_exact_gsv.py
 ```
 
-After download, inspect the folder layout, set `configs/datasets/gsv_100_pilot.yaml` paths if needed, and generate `manifests/gsv_100_pilot.csv` only from that exact source.
+After download, extract `imgs_final.zip` if needed and generate `manifests/gsv_100_pilot.csv` only from that exact source:
+
+```bash
+unzip -q -o data/raw/location_inference_gsv/imgs_final.zip -d data/raw/location_inference_gsv
+conda run -n geoshield-mllm python -m geoshield_mllm.cli prepare-dataset \
+  configs/datasets/gsv_100_pilot.yaml \
+  --availability-report docs/dataset_availability.md
+```
 
 ## Common Failures
 

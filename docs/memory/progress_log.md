@@ -152,6 +152,22 @@ Files changed: adaptive attack config, attack config dataclass, external runner 
 
 Tests run: `conda run -n geoshield-mllm python -m py_compile` passed for the overlay and helper scripts. `conda run -n geoshield-mllm python -m pytest` passed 36 tests.
 
+## 2026-05-14T03:35:00Z
+
+Summary: Re-checked the exact Location-Inference GSV/GSC source after the user clarified that Google Drive should be used for output/result artifacts, not dataset download. The upstream `njspyx/location-inference` README lists only a `gdown` Google Drive folder release for the dataset. The GitHub repo contains notebooks, Inspect code, and model-result CSVs, but no image files or alternate non-Drive release.
+
+Files changed: dataset availability docs, setup docs, memory docs.
+
+Tests run: not run; source verification and documentation update only.
+
+## 2026-05-14T03:50:00Z
+
+Summary: Downloaded the official Location-Inference GSV/GSC release after the user explicitly permitted Google Drive for the correct dataset source. Updated the downloader for current `gdown` CLI syntax, extracted `imgs_final.zip`, verified `1602` images, and froze `manifests/gsv_100_pilot.csv` with 100 deterministic rows.
+
+Files changed: GSV dataset config, GSV manifest, downloader script, dataset preparation mapper, dataset availability docs, setup docs, memory docs.
+
+Tests run: `conda run -n geoshield-mllm python -m geoshield_mllm.cli validate-manifest manifests/gsv_100_pilot.csv` passed. Manual manifest check found 100 rows, 0 missing images, 100 unique cities, and 35 countries. `conda run -n geoshield-mllm python -m pytest` passed 36 tests.
+
 ## 2026-05-13T00:05:00Z
 
 Summary: Corrected provider assumptions after user clarification. GPT-4o and GPT-5 mini are now configured under TechUtopia OpenAI-compatible access at `https://copilot.techutopia.cn/v1`; first-party OpenAI remains optional.

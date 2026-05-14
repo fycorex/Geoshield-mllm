@@ -112,7 +112,7 @@ def row_to_manifest_item(row: dict[str, Any], config: dict[str, Any], index: int
         if not image.is_absolute():
             image = Path(str(config["source_root"])).expanduser() / image
         image_path = str(image)
-    source_id = _first_present(row, ["source_id", "id", "img_id", "IMG_ID"]) or f"{config['dataset_name']}_{index:06d}"
+    source_id = _first_present(row, ["source_id", "id", "img_id", "IMG_ID", "filename"]) or f"{config['dataset_name']}_{index:06d}"
     tags = row.get("tags") or []
     if isinstance(tags, str) and "," in tags and "|" not in tags:
         tags = "|".join(part.strip() for part in tags.split(",") if part.strip())
@@ -129,7 +129,7 @@ def row_to_manifest_item(row: dict[str, Any], config: dict[str, Any], index: int
         latitude=float(lat),
         longitude=float(lon),
         tags=tags,
-        city=_first_present(row, ["city", "true_city"]),
+        city=_first_present(row, ["city", "city_name", "true_city"]),
         region=_first_present(row, ["region", "state"]),
         country=_first_present(row, ["country", "true_country"]),
         source_id=source_id,

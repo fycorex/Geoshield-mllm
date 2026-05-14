@@ -33,7 +33,6 @@ def main() -> None:
     cmd = [
         args.gdown,
         "--folder",
-        "--id",
         args.folder_id,
         "--output",
         str(args.output_dir),

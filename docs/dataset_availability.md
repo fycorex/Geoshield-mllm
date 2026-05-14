@@ -12,9 +12,11 @@
 - written rows: `0`
 - exact source: `https://github.com/njspyx/location-inference`
 - source paper: `https://arxiv.org/abs/2502.14412`
-- Google Drive folder id: `1FodVI-dir7zIpGRVpjnRBgvyTILAOFCX`
+- upstream release method: the official `njspyx/location-inference` README lists `gdown --id '1FodVI-dir7zIpGRVpjnRBgvyTILAOFCX' --folder`; user explicitly permitted this official Drive-hosted dataset source on 2026-05-14.
 - expected full benchmark: `1602` Google Street View images from `1563` unique cities across `88` countries.
-- status: exact GSV/GSC data is required and not yet frozen in git.
+- status: downloaded to ignored local storage and frozen as `manifests/gsv_100_pilot.csv`.
+- full release files: `full_benchmark.csv`, `img_coordinates_final_v1_with_country.csv`, `imgs_final.zip`, extracted `imgs_final_v1/` with `1602` images.
+- frozen pilot: `100` rows, `0` missing images, `100` unique cities, `35` countries.
 
 ## IM2GPS3K 100 Pilot
 
@@ -47,3 +49,23 @@ A VLM-GeoPrivacyBench image-mirror scan yielded only 50 usable IM2GPS3K-labelled
 ## Rejected GSV Proxy
 
 The previous `gsv_100_pilot.csv` was generated from `stochastic/random_streetview_images_pano_v0.0.2`. That source is not the exact GeoShield/Location-Inference GSV benchmark and must not be used for GSV/GSC experiments.
+
+# Dataset Availability: gsv_100_pilot
+
+- dataset: `gsv`
+- source root: `/home/ubuntu/Geoshield-mllm/data/raw/location_inference_gsv`
+- output manifest: `manifests/gsv_100_pilot.csv`
+- requested sample size: `100`
+- discovered rows: `1602`
+- rows with coordinates: `1602`
+- written rows: `100`
+
+# Dataset Availability: gsv_100_pilot
+
+- dataset: `gsv`
+- source root: `/home/ubuntu/Geoshield-mllm/data/raw/location_inference_gsv`
+- output manifest: `manifests/gsv_100_pilot.csv`
+- requested sample size: `100`
+- discovered rows: `1602`
+- rows with coordinates: `1602`
+- written rows: `100`

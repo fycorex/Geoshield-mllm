@@ -4,7 +4,7 @@
 
 - [x] Bootstrap repository structure, docs, configs, package, and tests.
 - [x] Add dry-run storage, provider normalization, metrics, reporting, and CLI foundations.
-- [ ] Download exact Location-Inference GSV/GSC benchmark and freeze `gsv_100_pilot`.
+- [x] Download exact Location-Inference GSV/GSC benchmark and freeze `gsv_100_pilot`.
 - [x] Download official IM2GPS3K images/metadata and freeze `im2gps3k_100_pilot`.
 - [x] Add real external GeoShield runner capable of generating protected images.
 - [x] Add Attack-VLLM-informed adaptive GeoShield config and command plan.

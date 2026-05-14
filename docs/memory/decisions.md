@@ -179,3 +179,13 @@ Why: The external GeoShield checkout is a separate source tree and should not be
 Alternatives considered: committing the whole external checkout, or leaving only local untracked edits. Committing the full checkout would blur ownership and add unrelated files. Leaving local edits untracked would make the adaptive branch non-reproducible.
 
 Impact: A fresh clone can apply the adaptive optimizer changes with `scripts/apply_geoshield_adaptive_overlay.py`, while the baseline GeoShield branch remains separable.
+
+## 2026-05-14: Permit Official Drive-Hosted Dataset Source Only When Explicitly Approved
+
+Decision: Treat Google Drive as the repository's output/result artifact backend by default, but allow a dataset-specific exception when the user explicitly approves an official upstream Drive-hosted release.
+
+Why: The user clarified that Drive should primarily be used to upload protected images and results, but then explicitly permitted using Google Drive for the correct GSV dataset because the official `njspyx/location-inference` release is Drive-hosted.
+
+Alternatives considered: reconstructing the benchmark from the Street View Static API or using a proxy mirror. Rejected because reconstruction may not be byte-identical and proxy GSV was explicitly rejected.
+
+Impact: `gsv_100_pilot` is frozen from the official release. Large image artifacts remain ignored under `data/`; only the manifest and lightweight metadata are committed.

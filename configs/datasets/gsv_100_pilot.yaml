@@ -1,8 +1,8 @@
 dataset_name: gsv
 subset_name: gsv_100_pilot
 source_type: exact_location_inference_gsv
-source_root: /home/ubuntu/Geoshield-mllm/data/raw/location_inference_gsv/images
-metadata_manifest: /home/ubuntu/Geoshield-mllm/data/raw/location_inference_gsv/metadata.csv
+source_root: /home/ubuntu/Geoshield-mllm/data/raw/location_inference_gsv
+metadata_manifest: /home/ubuntu/Geoshield-mllm/data/raw/location_inference_gsv/img_coordinates_final_v1_with_country.csv
 output_manifest: manifests/gsv_100_pilot.csv
 seed: 1001
 sample_size: 100
