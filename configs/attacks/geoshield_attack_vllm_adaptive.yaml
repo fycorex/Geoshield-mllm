@@ -6,12 +6,9 @@ step_size: 1/255
 steps: 200
 surrogate:
   mode: diverse_ensemble
-  primary_backbones: [B16, B32, L336, Laion]
-  planned_backbones:
-    - DINOv2
-    - Qwen2.5-VL
-    - LLaVA-NeXT
-  notes: "Use the full GeoShield CLIP ensemble first; add DINOv2/open-VLLM surrogates through the Attack-VLLM adapter once checkpoints are available."
+  primary_backbones: [B16, B32, L336, Laion, DINOv2]
+  open_vllm_backbones: [Qwen2VL, LLaVANeXT]
+  notes: "Default adaptive run adds DINOv2 to the GeoShield CLIP ensemble. Add Qwen2VL and LLaVANeXT explicitly when GPU memory and checkpoints are available."
 geoee:
   enabled: true
   detector: GroundingDINO
@@ -37,8 +34,8 @@ attack_vllm_transfer:
     patch_drop: true
     perturbation_averaging: true
   losses:
-    visual_contrastive_loss: planned
-    relative_proxy_loss: planned
+    visual_contrastive_loss: true
+    relative_proxy_loss: true
   positive_examples: "non-geographic semantic exemplars or clean image regions"
   negative_examples: "geo-revealing regions and/or original geolocation cue embeddings"
 output_root: runs/{run_id}/adv

@@ -19,6 +19,10 @@ class AttackConfig:
     output_root: str
     seed: int
     surrogate: dict[str, Any] = field(default_factory=dict)
+    geoee: dict[str, Any] = field(default_factory=dict)
+    gnfd: dict[str, Any] = field(default_factory=dict)
+    psae: dict[str, Any] = field(default_factory=dict)
+    attack_vllm_transfer: dict[str, Any] = field(default_factory=dict)
     notes: str | None = None
 
 
@@ -38,4 +42,3 @@ class Attack(ABC):
     @abstractmethod
     def run_item(self, item: ManifestItem, output_dir: Path, dry_run: bool = False) -> AttackResult:
         raise NotImplementedError
-

@@ -18,10 +18,11 @@ GeoShield remains the primary defense paper. The baseline must use:
 
 Use arXiv:2505.01050 as engineering input, not as the baseline paper:
 
-- diverse surrogate ensemble: CLIP B/16, CLIP B/32, CLIP L/14-336, LAION CLIP, then DINOv2 and open VLLMs when available
+- diverse surrogate ensemble: CLIP B/16, CLIP B/32, CLIP L/14-336, LAION CLIP, DINOv2, and optional open VLLMs when GPU memory/checkpoints are available
 - model regularization: DropPath/PatchDrop and perturbation averaging
 - data robustness: Gaussian noise, random crop/pad/resize, and DiffJPEG-style compression
 - loss upgrade: visual contrastive loss and relative proxy loss
+- mask refinement: GroundingDINO boxes can be refined by SAM, and the optimizer prefers `sam_box` or `refined_box` fields when present
 
 ## Experiment Branches
 
@@ -29,7 +30,18 @@ Use arXiv:2505.01050 as engineering input, not as the baseline paper:
 2. `geoshield_full_surrogate`: same GeoShield loss, larger CLIP ensemble.
 3. `geoshield_geoee_mllm`: strict GNFD + Geo-EE using MLLM descriptions and GroundingDINO/SAM.
 4. `geoshield_attack_vllm_aug`: GeoShield plus Attack-VLLM preprocessing augmentations.
-5. `geoshield_attack_vllm_loss`: add visual contrastive loss once positive/negative geo/non-geo exemplars are defined.
+5. `geoshield_attack_vllm_loss`: GeoShield plus visual contrastive and relative proxy losses.
+
+## Applying The Adaptive Optimizer Overlay
+
+The parent repo ignores `external/geoshield`, so adaptive optimizer source changes are stored under `patches/external_geoshield_adaptive/`. Apply them after cloning or updating the external GeoShield checkout:
+
+```bash
+conda run -n geoshield-mllm python scripts/apply_geoshield_adaptive_overlay.py \
+  --external-root external/geoshield
+```
+
+The overlay modifies the actual optimization loop, not only this repository's wrapper config.
 
 ## Command Templates
 
@@ -75,6 +87,7 @@ conda run -n geoshield-mllm python -m geoshield_mllm.cli run-geoshield-attack \
   --backbone B32 \
   --backbone L336 \
   --backbone Laion \
+  --backbone DINOv2 \
   --strict-geoee \
   --groundingdino-device cuda \
   --descriptions-provider techutopia \
@@ -94,6 +107,7 @@ conda run -n geoshield-mllm python -m geoshield_mllm.cli run-geoshield-attack \
   --backbone B32 \
   --backbone L336 \
   --backbone Laion \
+  --backbone DINOv2 \
   --strict-geoee \
   --groundingdino-device cuda \
   --descriptions-provider techutopia \
@@ -102,6 +116,13 @@ conda run -n geoshield-mllm python -m geoshield_mllm.cli run-geoshield-attack \
 
 Do not run GSV experiments against the prior Hugging Face Street View proxy. Exact GSV/GSC means the 1,602-image Location-Inference Google Street View benchmark used by GeoShield.
 
-## Current Implementation Gap
+Optional open-VLLM surrogate addition, only after confirming GPU memory and model checkpoints:
 
-The repo can call the real external GeoShield optimizer and generate protected images. The next code work is to patch the optimizer itself so Attack-VLLM augmentations and visual contrastive loss are part of the gradient loop, not only config intent.
+```bash
+  --backbone Qwen2VL \
+  --backbone LLaVANeXT
+```
+
+## Current Implementation Status
+
+The repo can call the real external GeoShield optimizer and generate protected images. The adaptive overlay patches the optimizer loop to add Attack-VLLM augmentations, perturbation averaging, visual contrastive loss, relative proxy loss, DINOv2/open-VLLM adapters, and SAM-refined box preference. Remaining work is end-to-end GPU validation with the exact checkpoints and exact GSV/GSC data.

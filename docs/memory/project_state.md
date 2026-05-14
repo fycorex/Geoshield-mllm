@@ -2,7 +2,7 @@
 
 Last updated: 2026-05-14
 
-Repository status: bootstrap pushed to `fycorex/Geoshield-mllm` on `main`; current working tree has uncommitted paper-plan and smoke-runner updates.
+Repository status: bootstrap pushed to `fycorex/Geoshield-mllm` on `main`; current working tree has uncommitted adaptive GeoShield optimizer updates.
 
 Implemented:
 - Repository structure for configs, docs, manifests, scripts, package code, and tests.
@@ -20,11 +20,14 @@ Implemented:
 - Drive OAuth smoke succeeded and wrote `docs/drive_smoke_latest.json`.
 - Added real external GeoShield runner capable of generating protected images through the local `external/geoshield` optimizer.
 - Added Attack-VLLM-informed adaptive GeoShield config and command plan.
+- Patched the local external GeoShield optimizer with an adaptive overlay that adds DINOv2, open-VLLM surrogate adapters, Attack-VLLM augmentations, visual contrastive loss, relative proxy loss, and SAM-refined box preference.
+- Added `scripts/apply_geoshield_adaptive_overlay.py` so the ignored external checkout can be made reproducible from tracked overlay files.
+- Added `scripts/generate_sam_refined_boxes.py` for GroundingDINO-to-SAM box refinement.
 - Removed the proxy `manifests/gsv_100_pilot.csv`; exact GSV/GSC must come from the Location-Inference benchmark.
 
 Incomplete:
-- Attack-VLLM augmentations and visual contrastive loss are documented/configured but not yet patched into the GeoShield gradient loop.
-- DINOv2 and open-VLLM surrogate adapters are not yet implemented.
+- The adaptive GeoShield optimizer patch is source-applied and py-compile checked, but not yet validated end-to-end with DINOv2/open-VLLM checkpoints on GPU.
+- SAM refinement requires a local SAM checkpoint and `segment-anything`.
 - Live provider calls require working TechUtopia/API credentials.
 - `gsv_100_pilot` is not currently frozen; it must be regenerated from the exact Location-Inference Google Street View benchmark.
 
@@ -44,8 +47,8 @@ Active assumptions:
 - API adapters must preserve raw responses and normalized parse failures.
 
 Next recommended steps:
-1. Patch GeoShield's optimizer to apply Attack-VLLM augmentations and visual contrastive/relative proxy losses inside each gradient step.
-2. Add DINOv2 and open-VLLM surrogate adapters.
-3. Upload/cache pilot artifacts in Drive using the working OAuth path.
-4. Run a small live TechUtopia eval once endpoint access is confirmed.
-5. Download the exact Location-Inference Google Street View benchmark and regenerate `manifests/gsv_100_pilot.csv`.
+1. Apply the tracked adaptive overlay to any fresh `external/geoshield` checkout before adaptive runs.
+2. Validate a one-image GPU adaptive run with CLIP+DINOv2; then add Qwen2VL/LLaVANeXT only if memory permits.
+3. Download the exact Location-Inference Google Street View benchmark and regenerate `manifests/gsv_100_pilot.csv`.
+4. Upload/cache pilot artifacts in Drive using the working OAuth path.
+5. Run a small live TechUtopia eval once endpoint access is confirmed.

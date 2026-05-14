@@ -87,7 +87,7 @@ git push -u origin main
 5. `aux_victim_mismatch`
 6. `adaptive_transfer_stress_test` as a later explicitly labeled stress test
 
-The Attack-VLLM-informed GeoShield branch is documented in `docs/adaptive_geoshield_plan.md` and configured by `configs/attacks/geoshield_attack_vllm_adaptive.yaml`. GSV/GSC experiments require the exact Location-Inference benchmark, not proxy Street View data.
+The Attack-VLLM-informed GeoShield branch is documented in `docs/adaptive_geoshield_plan.md` and configured by `configs/attacks/geoshield_attack_vllm_adaptive.yaml`. Its external optimizer changes are tracked as `patches/external_geoshield_adaptive/` and applied to `external/geoshield` with `scripts/apply_geoshield_adaptive_overlay.py`. GSV/GSC experiments require the exact Location-Inference benchmark, not proxy Street View data.
 
 ## Smoke Eval
 

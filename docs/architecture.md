@@ -16,7 +16,7 @@ Geoshield-mllm provides a reproducible pipeline for measuring when GeoShield-sty
 
 1. Dataset config selects a source and deterministic subset.
 2. `prepare_dataset` writes a frozen manifest with ground-truth latitude/longitude and optional tags.
-3. `run_attack` creates clean/protected artifact records. The current GeoShield-like implementation is dry-run capable and does not fake perturbations.
+3. `run_attack` creates clean/protected artifact records. The dry-run path records metadata only; the external GeoShield runner can call a local GeoShield checkout to generate protected images.
 4. `run_eval` sends clean and protected images to configured victim providers, stores raw responses, and normalizes predictions.
 5. Geocoding fills missing coordinates from model text when configured and records fallback usage.
 6. `aggregate_metrics` computes distances, threshold accuracies, parse/refusal/fallback rates, and subgroup breakdowns.
@@ -26,7 +26,7 @@ Geoshield-mllm provides a reproducible pipeline for measuring when GeoShield-sty
 ## Module Responsibilities
 
 - `datasets`: manifest schema, deterministic sampling, tag validation.
-- `attacks`: attack interfaces and GeoShield-like dry-run baseline wrapper.
+- `attacks`: attack interfaces, dry-run baseline wrapper, and external GeoShield runner. The adaptive branch can pass optimizer overrides for DINOv2/open-VLLM surrogates, Attack-VLLM augmentations, visual contrastive loss, and relative proxy loss.
 - `victims`: provider interfaces, API adapters, raw response preservation, normalization.
 - `geocode`: Google geocoding fallback adapter.
 - `storage`: local cache and Google Drive backend.
@@ -54,3 +54,6 @@ Git stores code, docs, configs, manifests, schemas, and Markdown reports. Drive 
 
 Future MLLM-aware defenses should implement the attack interface, emit comparable metadata, and reuse manifests, provider normalization, metrics, and reports. New providers should subclass the base victim adapter and preserve raw responses before normalization.
 
+## External GeoShield Overlay
+
+The external GeoShield checkout remains ignored by git. Adaptive optimizer edits are stored as a tracked overlay under `patches/external_geoshield_adaptive/` and applied with `scripts/apply_geoshield_adaptive_overlay.py`. This preserves reproducibility without committing checkpoints, datasets, generated images, or the whole external repository.

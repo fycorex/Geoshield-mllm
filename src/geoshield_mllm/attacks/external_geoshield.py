@@ -221,8 +221,11 @@ def run_external_geoshield(
         if result.returncode != 0:
             raise RuntimeError(f"GroundingDINO failed with exit code {result.returncode}; see {log_dir / 'groundingdino.log'}")
 
-    backbones = backbones or ["B16", "B32"]
+    backbones = backbones or attack_config.surrogate.get("primary_backbones") or ["B16", "B32"]
     steps = steps_override or attack_config.steps
+    transfer = attack_config.attack_vllm_transfer or {}
+    augmentations = transfer.get("augmentations") or {}
+    losses = transfer.get("losses") or {}
     cmd = [
         python,
         "geoshield.py",
@@ -240,6 +243,18 @@ def run_external_geoshield(
         "model.ensemble=true",
         "model.backbone=[" + ",".join(backbones) + "]",
     ]
+    if transfer.get("enabled"):
+        cmd.extend(
+            [
+                f"optim.enable_gaussian={str(bool(augmentations.get('gaussian_noise'))).lower()}",
+                f"optim.enable_crop_pad_resize={str(bool(augmentations.get('crop_pad_resize'))).lower()}",
+                f"optim.enable_diffjpeg={str(bool(augmentations.get('diffjpeg'))).lower()}",
+                f"optim.enable_patchdrop={str(bool(augmentations.get('patch_drop'))).lower()}",
+                f"optim.perturbation_averages={3 if augmentations.get('perturbation_averaging') else 1}",
+                f"optim.enable_visual_contrastive={str(bool(losses.get('visual_contrastive_loss'))).lower()}",
+                f"optim.enable_relative_proxy={str(bool(losses.get('relative_proxy_loss'))).lower()}",
+            ]
+        )
     if strict_geoee:
         cmd.append(f"data.bbox_json_path={bbox_path.resolve()}")
 

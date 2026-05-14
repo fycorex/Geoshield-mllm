@@ -144,6 +144,14 @@ Files changed: GSV dataset config, dataset availability docs, setup docs, adapti
 
 Tests run: not run; documentation/config correction only.
 
+## 2026-05-14T03:20:00Z
+
+Summary: Patched the external GeoShield optimizer for the adaptive Attack-VLLM branch. The loop now supports DINOv2 and open-VLLM surrogate adapters, Gaussian noise, crop-pad-resize, DiffJPEG-like compression, PatchDrop, perturbation averaging, visual contrastive loss, relative proxy loss, and SAM-refined bounding boxes. Because `external/geoshield` is ignored, the modified source is preserved as a tracked overlay with an apply script.
+
+Files changed: adaptive attack config, attack config dataclass, external runner overrides, SAM refinement script, adaptive overlay files, overlay apply script, adaptive plan, TODO, memory docs.
+
+Tests run: `conda run -n geoshield-mllm python -m py_compile` passed for the overlay and helper scripts. `conda run -n geoshield-mllm python -m pytest` passed 36 tests.
+
 ## 2026-05-13T00:05:00Z
 
 Summary: Corrected provider assumptions after user clarification. GPT-4o and GPT-5 mini are now configured under TechUtopia OpenAI-compatible access at `https://copilot.techutopia.cn/v1`; first-party OpenAI remains optional.

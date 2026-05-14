@@ -42,6 +42,8 @@ Supported provider families are TechUtopia OpenAI-compatible endpoints, first-pa
 
 Auxiliary/surrogate model choices and victim model choices are separate run-card fields. Mismatch experiments should change one axis at a time where budget allows.
 
+The baseline GeoShield branch should keep paper-style CLIP surrogate settings. The adaptive branch may add DINOv2, Qwen2VL, and LLaVA-NeXT surrogates, plus Attack-VLLM-style augmentation and proxy losses, but reports must label those runs as adaptive GeoShield and not as official baseline GeoShield.
+
 ## Prompt Policy
 
 Prompts are versioned under `configs/prompts/`. Geolocation prompts require strict JSON output. Non-geographic description prompts must avoid asking for location.
@@ -62,6 +64,8 @@ Use `<date>_<datasetbundle>_<attack>_<victimgroup>_<shorttag>`, for example `202
 4. `main_failure_tags`
 5. `aux_victim_mismatch`
 6. `adaptive_transfer_stress_test` as a later, explicitly labeled stress test using ideas from arXiv:2505.01050.
+
+The adaptive branch is now implemented as a source overlay for the external GeoShield optimizer. Before adaptive runs, apply `patches/external_geoshield_adaptive/` to `external/geoshield`; before strict Geo-EE runs with SAM, generate a GroundingDINO JSON and refine it with `scripts/generate_sam_refined_boxes.py`.
 
 ## Negative Results
 

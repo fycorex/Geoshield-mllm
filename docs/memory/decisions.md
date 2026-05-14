@@ -169,3 +169,13 @@ Why: The user wants GeoShield optimized with Attack-VLLM ideas such as more surr
 Alternatives considered: silently changing the baseline config. Rejected because it would make paper-aligned comparisons invalid.
 
 Impact: Commands and configs now distinguish baseline GeoShield from the adaptive Attack-VLLM-enhanced branch.
+
+## 2026-05-14: Persist External GeoShield Changes As a Tracked Overlay
+
+Decision: Keep `external/geoshield` ignored, but track a source overlay under `patches/external_geoshield_adaptive/` plus an apply script.
+
+Why: The external GeoShield checkout is a separate source tree and should not be committed wholesale. The adaptive optimization loop changes must still be reproducible from this repository.
+
+Alternatives considered: committing the whole external checkout, or leaving only local untracked edits. Committing the full checkout would blur ownership and add unrelated files. Leaving local edits untracked would make the adaptive branch non-reproducible.
+
+Impact: A fresh clone can apply the adaptive optimizer changes with `scripts/apply_geoshield_adaptive_overlay.py`, while the baseline GeoShield branch remains separable.
